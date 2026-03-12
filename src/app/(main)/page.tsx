@@ -35,116 +35,61 @@ export default function Home() {
       <Nav />
 
       <main className="relative">
-        <section className="pb-[var(--space-section-y)] pt-16 sm:pt-20 md:pt-24">
-          <div className="mx-auto w-full max-w-6xl px-[var(--space-section-x)] sm:px-6 md:px-8">
-            <div className="grid gap-8 lg:grid-cols-[1.1fr_.9fr] lg:items-center lg:gap-10">
+        <section className="pb-[var(--space-section-y)] pt-24 sm:pt-28 md:pt-32">
+          <div className="mx-auto w-full max-w-[1200px] px-3 sm:px-4 md:px-6">
+            <div className="grid gap-10 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-14">
               <div className="min-w-0">
-                <AnimateIn delay={0}>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-fluid-xs font-semibold tracking-tight text-white/70 sm:px-3">
-                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[rgba(136,174,255,.9)]" />
-                    {site.nameKo} · {site.nameEn}
-                  </div>
-                </AnimateIn>
                 <AnimateIn delay={0.08}>
-                  <h1 className="mt-4 text-balance font-semibold tracking-tight text-white text-fluid-hero sm:mt-6">
-                    {site.headline}
+                  <h1 className="font-display mt-4 text-balance font-semibold tracking-[-0.02em] text-white text-fluid-hero-sm leading-[1.18] sm:mt-6">
+                    <span className="block">{site.headlineLines[0]}</span>
+                    {site.headlineLines[1] ? (
+                      <span className="mt-2 block">{site.headlineLines[1]}</span>
+                    ) : null}
                   </h1>
                 </AnimateIn>
-                <AnimateIn delay={0.16}>
-                  <p className="mt-4 max-w-xl text-pretty text-fluid-lead leading-7 text-white/75 sm:mt-5 sm:leading-8">
-                    {site.intro[0]}
-                    <br />
-                    {site.intro[1]}
-                  </p>
-                </AnimateIn>
-                <AnimateIn delay={0.24}>
-                  <div className="mt-6 flex flex-wrap items-center gap-2 sm:mt-8 sm:gap-3">
-                    <Button href="#projects" variant="primary">
-                      프로젝트 보기
-                      <svg
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                        className="h-4 w-4"
-                        fill="currentColor"
-                      >
-                        <path d="M13 5a1 1 0 0 0 0 2h3.59L6.3 17.29a1 1 0 1 0 1.4 1.42L18 8.41V12a1 1 0 1 0 2 0V5h-7z" />
-                      </svg>
-                    </Button>
-                    <Button href="#contact" variant="secondary">
-                      연락하기
-                    </Button>
-                    <Button href={site.githubUrl} variant="ghost">
-                      GitHub
-                    </Button>
+                <AnimateIn delay={0.12}>
+                  <div className="mt-4 text-fluid-sm font-semibold tracking-[0.18em] text-white/55 sm:mt-5">
+                    {site.brandlineEn}
                   </div>
                 </AnimateIn>
-                <AnimateIn delay={0.32}>
-                  <div className="mt-6 flex flex-wrap gap-2 sm:mt-8">
-                    {[
-                      "Public Data",
-                      "Data QA",
-                      "GIS / Map-based Thinking",
-                      "Visualization",
-                      "Frontend Implementation",
-                      "Documentation",
-                    ].map((t) => (
-                      <Tag key={t}>{t}</Tag>
-                    ))}
+                <AnimateIn delay={0.16}>
+                  <div className="mt-4 max-w-2xl text-pretty text-fluid-sm leading-[2.05] tracking-[0.01em] text-white/75 sm:mt-5 space-y-4 break-keep">
+                    {site.intro
+                      .reduce<string[][]>((acc, line) => {
+                        if (line === "") {
+                          if (acc[acc.length - 1]?.length) acc.push([]);
+                          return acc;
+                        }
+                        acc[acc.length - 1]!.push(line);
+                        return acc;
+                      }, [[]])
+                      .filter((p) => p.length > 0)
+                      .map((p, i) => (
+                        <p key={i}>
+                          {p.map((line, j) => (
+                            <span key={j}>
+                              {line}
+                              {j < p.length - 1 ? <br /> : null}
+                            </span>
+                          ))}
+                        </p>
+                      ))}
                   </div>
                 </AnimateIn>
               </div>
 
-              <AnimateIn delay={0.2} as="div" className="relative min-w-0">
-                <div className="rounded-2xl border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04))] p-4 shadow-[0_20px_80px_rgba(0,0,0,.45)] transition-all duration-300 hover:border-white/15 sm:rounded-3xl sm:p-6">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="min-w-0 text-fluid-sm font-semibold tracking-tight text-white">
-                      Selected Highlights
-                    </div>
-                    <div className="shrink-0 text-fluid-xs text-white/55">2025 → 2026</div>
-                  </div>
-                  <div className="mt-4 grid gap-2 sm:mt-5 sm:gap-3">
-                    {featuredProjects
-                      .slice()
-                      .sort((a, b) => a.order - b.order)
-                      .slice(0, 2)
-                      .map((p) => (
-                        <div
-                          key={p.id}
-                          className="rounded-xl border border-white/10 bg-white/5 p-3 transition-colors hover:bg-white/[0.07] sm:rounded-2xl sm:p-4"
-                        >
-                          <div className="flex items-start justify-between gap-3 sm:gap-4">
-                            <div className="min-w-0">
-                              <div className="text-fluid-sm font-semibold tracking-tight text-white">
-                                {p.order}. {p.title}
-                              </div>
-                              <p className="mt-1.5 text-fluid-sm leading-6 text-white/70 sm:mt-2">
-                                {p.oneLiner}
-                              </p>
-                            </div>
-                            <a
-                              href={p.links[0]?.href ?? "#projects"}
-                              className="shrink-0 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-fluid-xs font-semibold text-white/70 transition-colors hover:bg-white/10 hover:text-white sm:px-3 sm:py-2"
-                            >
-                              보기
-                            </a>
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                  <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-3 sm:mt-6 sm:rounded-2xl sm:p-4">
-                    <div className="text-fluid-xs font-semibold tracking-[0.22em] text-white/50">
-                      PRINCIPLE
-                    </div>
-                    <div className="mt-2 text-fluid-sm leading-6 text-white/75">
-                      "무엇을 만들었는가"보다
-                      <br />
-                      <span className="text-white">"왜 만들었고 어떤 문제를 풀었는가"</span>
-                      를 먼저 보여줍니다.
-                    </div>
-                  </div>
+              <AnimateIn delay={0.18} as="div" className="relative hidden min-w-0 lg:block">
+                <div className="relative hero-hex-wrap overflow-hidden">
+                  <img
+                    src="/images/hero-hex.png"
+                    alt="데이터 중심 기술 경험 요약"
+                    className="hero-hex w-[124%] max-w-[1120px] select-none opacity-100 drop-shadow-[0_50px_150px_rgba(0,0,0,.55)] -translate-x-[12%]"
+                    loading="eager"
+                  />
                 </div>
+
                 <div
-                  className="pointer-events-none absolute -inset-6 -z-10 rounded-[36px] bg-[radial-gradient(closest-side,rgba(136,174,255,.25),transparent_65%)] blur-2xl"
+                  className="pointer-events-none absolute -inset-16 -z-10 rounded-[64px] bg-[radial-gradient(closest-side,rgba(136,174,255,.24),transparent_62%)] blur-[90px]"
                   aria-hidden="true"
                 />
               </AnimateIn>
@@ -153,208 +98,118 @@ export default function Home() {
         </section>
 
         <Section
-          id="about"
-          eyebrow="ABOUT"
-          title="데이터를 '결과물'로 만드는 사람"
-          subtitle="성장서사 대신, 문제를 정의하고 끝까지 완성하는 방식으로 소개합니다."
-        >
-          <StaggerGrid className="grid gap-4 sm:gap-5 lg:grid-cols-3 lg:gap-6">
-            <StaggerItem>
-              <div className="card-hover-glow rounded-2xl border border-white/10 bg-[var(--card)] p-4 transition-colors hover:border-white/15 sm:rounded-3xl sm:p-5 md:p-6">
-                <div className="text-fluid-sm font-semibold text-white md:text-fluid-base">지금 하는 일</div>
-                <p className="mt-2 text-fluid-sm leading-7 text-white/70 sm:mt-3 md:text-fluid-base">
-                  공공·도시 데이터를 분석하고, 사용자에게 "바로 쓰이는" 화면으로
-                  구현합니다.
-                </p>
-              </div>
-            </StaggerItem>
-            <StaggerItem>
-              <div className="card-hover-glow rounded-2xl border border-white/10 bg-[var(--card)] p-4 transition-colors hover:border-white/15 sm:rounded-3xl sm:p-5 md:p-6">
-                <div className="text-fluid-sm font-semibold text-white md:text-fluid-base">관심 문제</div>
-                <p className="mt-2 text-fluid-sm leading-7 text-white/70 sm:mt-3 md:text-fluid-base">
-                  데이터 품질(정합성/누락/이상치)과 정보 접근성, 비교/탐색 UX에
-                  집중합니다.
-                </p>
-              </div>
-            </StaggerItem>
-            <StaggerItem>
-              <div className="card-hover-glow rounded-2xl border border-white/10 bg-[var(--card)] p-4 transition-colors hover:border-white/15 sm:rounded-3xl sm:p-5 md:p-6">
-                <div className="text-fluid-sm font-semibold text-white md:text-fluid-base">성장 방향</div>
-                <p className="mt-2 text-fluid-sm leading-7 text-white/70 sm:mt-3 md:text-fluid-base">
-                  지도·대시보드·데이터 제품화 역량을 더 깊게 만들고 있습니다.
-                </p>
-              </div>
-            </StaggerItem>
-          </StaggerGrid>
-        </Section>
-
-        <Section
-          eyebrow="CORE"
-          title="Strength / Core Keywords"
-          subtitle="길게 설명하지 않고, 나를 빠르게 인식시키는 핵심 역량입니다."
-        >
-          <StaggerGrid className="grid gap-2 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
-            {[
-              ["Public Data", "공공/도시 데이터 맥락을 이해하고 설계합니다."],
-              ["Data Cleaning & QA", "정합성/누락/이상치를 규칙으로 다룹니다."],
-              ["Map-based Visualization", "공간/지역 관점으로 비교를 만듭니다."],
-              ["Dashboard & IA", "정보 구조로 '이해 가능한 흐름'을 설계합니다."],
-              ["Frontend Implementation", "UI 흐름을 구현으로 정확히 옮깁니다."],
-              ["Documentation", "재현성과 전달력을 문서로 남깁니다."],
-            ].map(([k, d]) => (
-              <StaggerItem key={k}>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-4 transition-all duration-200 hover:border-white/15 hover:bg-white/[0.07] sm:rounded-3xl sm:p-5">
-                  <div className="text-fluid-sm font-semibold tracking-tight text-white md:text-fluid-base">
-                    {k}
-                  </div>
-                  <div className="mt-1.5 text-fluid-sm leading-6 text-white/65 sm:mt-2 md:text-fluid-base">{d}</div>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerGrid>
-        </Section>
-
-        <Section
-          eyebrow="SKILLS"
-          title="업무 단위로 정리한 스킬"
-          subtitle="기술 나열이 아니라, 어떤 일을 어떤 방식으로 해내는지가 보이도록 구성했습니다."
-        >
-          <StaggerGrid className="grid gap-3 sm:gap-4 lg:grid-cols-2">
-            {[
-              {
-                title: "Data",
-                desc: "정제/검수/지표 설계, 재현 가능한 분석",
-                items: ["Python", "Pandas", "NumPy", "SQL"],
-              },
-              {
-                title: "Visualization",
-                desc: "비교/탐색 중심의 화면 구성",
-                items: ["Matplotlib", "Seaborn", "Dashboard 설계", "Storytelling"],
-              },
-              {
-                title: "Web",
-                desc: "정보구조 → UI 흐름 → 구현",
-                items: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
-              },
-              {
-                title: "Work / Collaboration",
-                desc: "이해관계자 전달 가능한 산출물",
-                items: ["Excel", "문서화", "데이터 검수", "보고자료 작성"],
-              },
-            ].map((c) => (
-              <StaggerItem key={c.title}>
-                <div className="card-hover-glow rounded-2xl border border-white/10 bg-[var(--card)] p-4 transition-colors hover:border-white/15 sm:rounded-3xl sm:p-5 md:p-6">
-                  <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-4">
-                    <div className="text-fluid-sm font-semibold text-white md:text-fluid-base">{c.title}</div>
-                    <div className="text-fluid-xs text-white/55">{c.desc}</div>
-                  </div>
-                  <div className="mt-3 flex flex-wrap gap-1.5 sm:mt-4 sm:gap-2">
-                    {c.items.map((it) => (
-                      <Tag key={it}>{it}</Tag>
-                    ))}
-                  </div>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerGrid>
-        </Section>
-
-        <Section
           id="projects"
-          eyebrow="FEATURED"
-          title="Featured Projects"
-          subtitle="'데이터를 서비스로 바꾼 사례' 중심으로 구성했습니다."
+          eyebrow=""
+          title="프로젝트"
+          subtitle=""
+          titleClassName="text-fluid-4xl md:text-[clamp(2.4rem,2.6vw+1.6rem,3.4rem)] font-extrabold"
         >
-          <StaggerGrid className="grid gap-3 sm:gap-4 lg:grid-cols-3">
+          <StaggerGrid className="grid gap-5 sm:gap-6 lg:grid-cols-2">
             {featuredProjects
               .slice()
-              .sort((a, b) => a.order - b.order)
-              .map((p) => (
-                <StaggerItem
-                  key={p.id}
-                  className={p.order === 1 ? "lg:col-span-2" : ""}
-                >
-                <article
-                  className="card-hover-glow rounded-2xl border border-white/10 bg-[var(--card)] p-4 shadow-[0_18px_80px_rgba(0,0,0,.35)] transition-colors hover:border-white/15 sm:rounded-3xl sm:p-5 md:p-6"
-                >
-                  <div className="flex flex-wrap items-start justify-between gap-2 sm:gap-4">
-                    <div className="min-w-0">
-                      <p className="text-fluid-xs font-semibold tracking-[0.22em] text-white/50">
-                        PROJECT {p.order}
-                      </p>
-                      <h3 className="mt-1.5 text-fluid-lg font-semibold tracking-tight text-white sm:mt-2 md:text-fluid-xl">
-                        {p.title}
-                      </h3>
-                    </div>
-                    <div className="shrink-0 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-fluid-xs font-semibold text-white/70 sm:px-3">
-                      {p.links.some((l) => l.label.includes("Private"))
-                        ? "Private"
-                        : "Public"}
-                    </div>
-                  </div>
-
-                  <p className="mt-3 text-fluid-sm leading-7 text-white/70 sm:mt-4 md:text-fluid-base">
-                    {p.oneLiner}
-                  </p>
-
-                  <p className="mt-3 text-fluid-sm leading-7 text-white/80 sm:mt-4 md:text-fluid-base">
-                    <span className="font-semibold text-white">왜 괜찮은가:</span>{" "}
-                    {p.whyGood}
-                  </p>
-
-                  <div className="mt-4 flex flex-wrap gap-1.5 sm:mt-5 sm:gap-2">
-                    {p.tags.map((t) => (
-                      <Tag key={t}>{t}</Tag>
-                    ))}
-                  </div>
-
-                  <div className="mt-5 flex flex-wrap gap-2 sm:mt-6 sm:mt-7">
-                    {p.links.map((l) => (
-                      <Button
-                        key={l.href}
-                        href={l.href}
-                        variant={l.kind}
-                        className="px-4 py-2"
+              .sort((a, b) => {
+                const score = (p: { period: string }) => {
+                  const s = p.period.trim();
+                  if (s.includes("진행")) return Number.POSITIVE_INFINITY;
+                  const m = s.match(/^(\d{4})\.(\d{2})$/);
+                  if (!m) return Number.NEGATIVE_INFINITY;
+                  const y = Number(m[1]);
+                  const mo = Number(m[2]);
+                  return y * 100 + mo;
+                };
+                const diff = score(b) - score(a);
+                return diff !== 0 ? diff : b.order - a.order;
+              })
+              .map((p) => {
+                const thumbGradients: Record<number, string> = {
+                  1: "linear-gradient(135deg, rgba(120,170,255,.4) 0%, rgba(100,140,220,.2) 100%)",
+                  2: "linear-gradient(135deg, rgba(80,220,180,.35) 0%, rgba(60,180,160,.18) 100%)",
+                  3: "linear-gradient(135deg, rgba(255,180,100,.3) 0%, rgba(220,140,80,.15) 100%)",
+                  4: "linear-gradient(135deg, rgba(160,120,255,.35) 0%, rgba(120,80,200,.18) 100%)",
+                  5: "linear-gradient(135deg, rgba(100,200,255,.3) 0%, rgba(80,160,220,.15) 100%)",
+                };
+                const detailHref = `/projects/${p.id}`;
+                return (
+                  <StaggerItem key={p.id}>
+                    <article id={p.id} className="scroll-mt-24">
+                      <a
+                        href={detailHref}
+                        className="project-card group block overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7c3aed]/60"
                       >
-                        {l.label}
-                      </Button>
-                    ))}
-                    <Button href="#contact" variant="ghost" className="px-4 py-2">
-                      상세 문의
-                    </Button>
-                  </div>
-                </article>
-                </StaggerItem>
-              ))}
+                        <div
+                          className="project-thumb relative h-40 w-full overflow-hidden border-b border-white/10 sm:h-44"
+                          style={{ background: thumbGradients[p.order] ?? thumbGradients[1] }}
+                        >
+                          <div className="absolute inset-0 opacity-70 [background:radial-gradient(900px_circle_at_30%_20%,rgba(255,255,255,.18),transparent_55%),radial-gradient(700px_circle_at_70%_80%,rgba(255,255,255,.10),transparent_58%)]" />
+                          <div className="absolute -inset-10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100 [background:radial-gradient(closest-side,rgba(124,58,237,.25),transparent_72%)]" />
+                          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,.05),rgba(0,0,0,.22))]" />
+                          {p.coverImage ? (
+                            <img
+                              src={p.coverImage.src}
+                              alt={p.coverImage.alt}
+                              className="absolute inset-0 h-full w-full object-cover opacity-90"
+                              loading="lazy"
+                            />
+                          ) : null}
+                        </div>
+
+                        <div className="flex min-w-0 flex-col gap-3 p-4 sm:p-5">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-fluid-xs font-semibold tracking-[0.18em] text-white/55">
+                              {p.category}
+                            </span>
+                            <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-fluid-xs font-semibold text-white/45">
+                              {p.period}
+                            </span>
+                          </div>
+
+                          <div className="min-w-0">
+                            <h3 className="text-fluid-lg font-extrabold tracking-[-0.02em] text-white/92 sm:text-fluid-xl">
+                              {p.title}
+                            </h3>
+                            <p className="mt-2 text-fluid-xs leading-7 text-white/72">
+                              {p.oneLiner}
+                            </p>
+                          </div>
+
+                          <div className="flex flex-wrap gap-1.5 pt-1 sm:gap-2">
+                            {p.tags.slice(0, 5).map((t) => (
+                              <Tag key={t}>{t}</Tag>
+                            ))}
+                          </div>
+
+                          <div className="mt-1 flex items-center justify-between">
+                            <span className="text-fluid-xs font-semibold text-white/45">Case Study</span>
+                            <span className="inline-flex items-center gap-2 rounded-lg bg-[#7c3aed]/90 px-3 py-2 text-fluid-xs font-semibold text-white shadow-[0_14px_45px_rgba(124,58,237,.18)] transition-colors group-hover:bg-[#6d28d9]">
+                              자세히 보기
+                              <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+                            </span>
+                          </div>
+                        </div>
+                      </a>
+                    </article>
+                  </StaggerItem>
+                );
+              })}
           </StaggerGrid>
         </Section>
 
         <Section
           id="experience"
           eyebrow="EXPERIENCE"
-          title="일한 환경과 방식"
-          subtitle="이력서처럼 길게가 아니라, 타임라인처럼 핵심만 정리합니다."
+          title="업무경험"
+          subtitle=""
         >
           <StaggerGrid className="grid gap-2 sm:gap-3">
             {[
               {
-                title: "서울시 가로수 데이터 전문가",
-                period: "실무 경험",
-                body: "속성값 정합성 검수, 좌표/수종/규격/병해충 이력 등 품질 관리를 통해 데이터 신뢰도를 높이는 업무를 수행했습니다. (세부는 비공개 범위에 따라 요약 제공)",
-              },
-              {
-                title: "공공데이터 기반 프로젝트 수행",
-                period: "프로젝트",
-                body: "도시/행정 데이터의 구조와 제약을 이해하고, 분석 결과가 실제로 쓰이는 형태(지도/대시보드/문서)로 연결했습니다.",
-              },
-              {
-                title: "개인 학습 및 서비스형 프로젝트",
-                period: "지속",
-                body: "데이터를 사용자 경험으로 바꾸는 연습을 꾸준히 하고, 결과물로 남깁니다.",
+                title: "서울시청 · 조경과",
+                period: "2025.04.01 ~ 재직중",
+                body: "참여사업: 가로수 데이터 관리 시스템(트리맵) · 담당업무: 가로수 및 녹지 데이터 현황관리(강북권)",
               },
             ].map((x) => (
               <StaggerItem key={x.title}>
-                <div className="card-hover-glow rounded-2xl border border-white/10 bg-white/5 p-4 transition-colors hover:border-white/15 sm:rounded-3xl sm:p-5 md:p-6">
+                <div className="card-hover-glow glass rounded-2xl border border-white/10 p-4 sm:rounded-3xl sm:p-5 md:p-6">
                   <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-2">
                     <div className="text-fluid-sm font-semibold tracking-tight text-white md:text-fluid-base">
                       {x.title}
@@ -371,43 +226,82 @@ export default function Home() {
         </Section>
 
         <Section
-          id="process"
-          eyebrow="PROCESS"
-          title="How I Work"
-          subtitle="'생각하면서 만드는 사람'으로 보이게 하는 나의 작업 흐름입니다."
+          id="skills"
+          eyebrow="SKILLS"
+          title="기술과 역량"
+          subtitle="데이터 정제·시각화·웹 구현까지 쓰는 도구입니다."
         >
-          <StaggerGrid className="grid gap-2 sm:grid-cols-2 sm:gap-3 lg:grid-cols-5">
+          <StaggerGrid className="grid gap-3 sm:gap-4 lg:grid-cols-2">
             {[
-              {
-                k: "Define",
-                d: "문제/사용자/의사결정 포인트를 먼저 정리합니다.",
-              },
-              { k: "Audit", d: "데이터 구조와 품질을 확인합니다." },
-              { k: "Refine", d: "필요한 정보만 정제하고 표준화합니다." },
-              { k: "Build", d: "탐색/비교 중심 UI 흐름을 구현합니다." },
-              { k: "Document", d: "문서화하고 개선합니다." },
-            ].map((s, idx) => (
-              <StaggerItem key={s.k}>
-                <div className="card-hover-glow rounded-2xl border border-white/10 bg-[var(--card)] p-4 transition-colors hover:border-white/15 sm:rounded-3xl sm:p-5 md:p-6">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="text-fluid-sm font-semibold text-white md:text-fluid-base">{s.k}</div>
-                    <div className="text-fluid-xs text-white/45">{String(idx + 1).padStart(2, "0")}</div>
+              { title: "Data", desc: "정제·검수·지표 설계, 재현 가능한 분석", items: ["Python", "Pandas", "NumPy", "SQL"] },
+              { title: "Visualization", desc: "비교·탐색 중심 화면 구성", items: ["Matplotlib", "Seaborn", "Dashboard", "Storytelling"] },
+              { title: "Web", desc: "정보구조 → UI 흐름 → 구현", items: ["React", "Next.js", "TypeScript", "Tailwind CSS"] },
+              { title: "Work", desc: "이해관계자 전달 가능한 산출물", items: ["Excel", "문서화", "데이터 검수", "보고자료"] },
+            ].map((c) => (
+              <StaggerItem key={c.title}>
+                <div className="card-hover-glow glass rounded-2xl border border-white/10 p-4 sm:rounded-3xl sm:p-5 md:p-6">
+                  <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-4">
+                    <div className="text-fluid-sm font-semibold text-white md:text-fluid-base">{c.title}</div>
+                    <div className="text-fluid-xs text-white/55">{c.desc}</div>
                   </div>
-                  <p className="mt-2 text-fluid-sm leading-7 text-white/70 sm:mt-3 md:text-fluid-base">{s.d}</p>
+                  <div className="mt-3 flex flex-wrap gap-1.5 sm:mt-4 sm:gap-2">
+                    {c.items.map((it) => (
+                      <Tag key={it}>{it}</Tag>
+                    ))}
+                  </div>
                 </div>
               </StaggerItem>
             ))}
           </StaggerGrid>
+          <div className="mt-8 glass rounded-2xl border border-white/10 p-4 sm:mt-10 sm:rounded-3xl sm:p-5 md:p-6">
+            <div className="flex flex-wrap items-baseline justify-between gap-2">
+              <div className="text-fluid-sm font-semibold text-white md:text-fluid-base">Tech Stack</div>
+              <div className="text-fluid-xs text-white/55">데이터 중심으로 확장해 온 기술들</div>
+            </div>
+            <StaggerGrid className="mt-4 flex flex-wrap items-center justify-center gap-4 sm:mt-5 sm:gap-6">
+              {[
+                { t: "HTML", s: "5", c: "from-[#ff8a4c]/30 to-white/5", ring: "bg-[#ff8a4c]/18" },
+                { t: "CSS", s: "3", c: "from-[#60a5fa]/28 to-white/5", ring: "bg-[#60a5fa]/18" },
+                { t: "JavaScript", s: "JS", c: "from-[#facc15]/22 to-white/5", ring: "bg-[#facc15]/16" },
+                { t: "TypeScript", s: "TS", c: "from-[#3b82f6]/22 to-white/5", ring: "bg-[#3b82f6]/16" },
+                { t: "React", s: "⚛︎", c: "from-[#7dd3fc]/20 to-white/5", ring: "bg-[#7dd3fc]/14" },
+                { t: "Tailwind", s: "TW", c: "from-[#2dd4bf]/18 to-white/5", ring: "bg-[#2dd4bf]/12" },
+                { t: "Git", s: "GIT", c: "from-[#fb7185]/18 to-white/5", ring: "bg-[#fb7185]/12" },
+              ].map((x) => (
+                <StaggerItem key={x.t}>
+                  <div className="group flex flex-col items-center gap-2">
+                    <div
+                      className={`relative grid h-14 w-14 place-items-center rounded-2xl border border-white/10 bg-gradient-to-br ${x.c} shadow-[0_18px_60px_rgba(0,0,0,.45)]`}
+                      style={{
+                        clipPath: "polygon(25% 6%, 75% 6%, 94% 50%, 75% 94%, 25% 94%, 6% 50%)",
+                      }}
+                      aria-label={x.t}
+                      title={x.t}
+                    >
+                      <div
+                        className={`grid h-[42px] w-[42px] place-items-center rounded-xl border border-white/10 ${x.ring} text-fluid-xs font-extrabold tracking-[-0.01em] text-white/85 transition-transform duration-300 group-hover:scale-[1.04]`}
+                        style={{
+                          clipPath: "polygon(25% 6%, 75% 6%, 94% 50%, 75% 94%, 25% 94%, 6% 50%)",
+                        }}
+                      >
+                        {x.s}
+                      </div>
+                    </div>
+                    <div className="text-fluid-xs font-semibold text-white/55">{x.t}</div>
+                  </div>
+                </StaggerItem>
+              ))}
+            </StaggerGrid>
+          </div>
         </Section>
 
         <Section
           id="contact"
           eyebrow="CONTACT"
-          title="함께 이야기 나눠요"
-          subtitle="새로운 데이터 프로젝트와 서비스 구현에 관심이 있습니다. 편하게 연락 주세요."
+          title="연락하기"
         >
           <AnimateIn>
-          <div className="rounded-2xl border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04))] p-4 transition-colors hover:border-white/15 sm:rounded-3xl sm:p-6 md:p-8 lg:p-10">
+          <div className="card-3d glass-strong rounded-2xl p-4 sm:rounded-3xl sm:p-6 md:p-8 lg:p-10">
             <div className="grid gap-6 sm:gap-8 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
               <div className="min-w-0">
                 <div className="text-fluid-sm font-semibold text-white md:text-fluid-base">
@@ -426,15 +320,12 @@ export default function Home() {
                   </Button>
                 </div>
               </div>
-              <div className="rounded-xl border border-white/10 bg-white/5 p-4 sm:rounded-2xl sm:p-5 md:p-6">
-                <div className="text-fluid-xs font-semibold tracking-[0.22em] text-white/50">
-                  QUICK LINKS
-                </div>
+              <div className="glass rounded-xl border border-white/10 p-4 sm:rounded-2xl sm:p-5 md:p-6">
                 <div className="mt-3 grid gap-2 sm:mt-4">
                   {[
                     { label: "Projects", href: "#projects" },
                     { label: "Experience", href: "#experience" },
-                    { label: "How I Work", href: "#process" },
+                    { label: "Skills", href: "#skills" },
                   ].map((l) => (
                     <a
                       key={l.href}

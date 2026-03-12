@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 export function Footer() {
   return (
     <footer className="border-t border-white/10 py-6 sm:py-8 md:py-10">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-[var(--space-section-x)] sm:flex-row sm:items-center sm:justify-between sm:px-6 md:px-8">
+      <div className="mx-auto flex w-full max-w-screen-2xl flex-col gap-4 px-3 sm:flex-row sm:items-center sm:justify-between sm:px-4 md:px-6">
         <p className="text-fluid-sm text-white/60">
           © {new Date().getFullYear()} {site.nameEn}. Built with intention.
         </p>

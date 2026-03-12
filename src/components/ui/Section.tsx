@@ -5,27 +5,28 @@ export function Section({
   eyebrow,
   title,
   subtitle,
+  titleClassName = "",
   children,
 }: {
   id?: string;
   eyebrow: string;
   title: string;
   subtitle?: string;
+  titleClassName?: string;
   children: ReactNode;
 }) {
   return (
     <section
       id={id}
-      className="scroll-mt-20 py-[var(--space-section-y)] md:scroll-mt-24"
+      className="scroll-mt-28 py-[var(--space-section-y)] md:scroll-mt-32"
     >
       <div
-        className="mx-auto w-full max-w-6xl px-[var(--space-section-x)] sm:px-6 md:px-8"
+        className="mx-auto w-full max-w-screen-2xl px-3 sm:px-4 md:px-6"
       >
         <div className="mb-6 sm:mb-8 md:mb-10">
-          <p className="text-fluid-xs font-semibold tracking-[0.22em] text-white/50">
-            {eyebrow}
-          </p>
-          <h2 className="mt-3 text-fluid-3xl font-semibold tracking-tight text-white md:text-fluid-4xl">
+          <h2
+            className={`font-semibold tracking-tight text-white md:text-fluid-4xl text-fluid-3xl ${titleClassName}`}
+          >
             {title}
           </h2>
           {subtitle ? (
