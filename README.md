@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# portfolio
 
-## Getting Started
+개인 포트폴리오 사이트. Next.js(App Router) + Tailwind + Framer Motion.
 
-First, run the development server:
+## 실행
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+브라우저에서 http://localhost:3000 (또는 터미널에 찍힌 주소) 열면 됨.  
+루트에서 404 나오면 `npx next dev --hostname 127.0.0.1 --port 3000` 로 한 번 더 시도해보면 됨.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 빌드
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## 사용한 것
 
-To learn more about Next.js, take a look at the following resources:
+- Next.js 16, React 19
+- Tailwind CSS 4
+- Framer Motion (스크롤/스태거 애니메이션)
+- Geist 폰트
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 폴더 대략
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/app/(main)/page.tsx` — 메인 한 페이지 (Hero ~ Contact)
+- `src/components/` — Nav, Footer, Section, Button, Tag, AnimateIn
+- `src/lib/site.ts` — 이름/소개/프로젝트 목록 등 문구
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+문구·링크 수정은 `site.ts` 보면 됨.

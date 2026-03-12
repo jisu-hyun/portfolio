@@ -9,7 +9,6 @@ import { featuredProjects, site } from "@/lib/site";
 export default function Home() {
   return (
     <div id="top" className="relative min-h-dvh">
-      {/* Animated gradient orbs */}
       <div
         className="gradient-orb-1 pointer-events-none fixed inset-0 -z-20"
         aria-hidden="true"
@@ -36,7 +35,6 @@ export default function Home() {
       <Nav />
 
       <main className="relative">
-        {/* HERO */}
         <section className="pb-[var(--space-section-y)] pt-16 sm:pt-20 md:pt-24">
           <div className="mx-auto w-full max-w-6xl px-[var(--space-section-x)] sm:px-6 md:px-8">
             <div className="grid gap-8 lg:grid-cols-[1.1fr_.9fr] lg:items-center lg:gap-10">
@@ -154,7 +152,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ABOUT */}
         <Section
           id="about"
           eyebrow="ABOUT"
@@ -191,7 +188,6 @@ export default function Home() {
           </StaggerGrid>
         </Section>
 
-        {/* CORE KEYWORDS */}
         <Section
           eyebrow="CORE"
           title="Strength / Core Keywords"
@@ -218,7 +214,6 @@ export default function Home() {
           </StaggerGrid>
         </Section>
 
-        {/* SKILLS */}
         <Section
           eyebrow="SKILLS"
           title="업무 단위로 정리한 스킬"
@@ -264,7 +259,6 @@ export default function Home() {
           </StaggerGrid>
         </Section>
 
-        {/* PROJECTS */}
         <Section
           id="projects"
           eyebrow="FEATURED"
@@ -335,7 +329,6 @@ export default function Home() {
           </StaggerGrid>
         </Section>
 
-        {/* EXPERIENCE */}
         <Section
           id="experience"
           eyebrow="EXPERIENCE"
@@ -377,7 +370,6 @@ export default function Home() {
           </StaggerGrid>
         </Section>
 
-        {/* PROCESS */}
         <Section
           id="process"
           eyebrow="PROCESS"
@@ -408,7 +400,6 @@ export default function Home() {
           </StaggerGrid>
         </Section>
 
-        {/* CONTACT */}
         <Section
           id="contact"
           eyebrow="CONTACT"
