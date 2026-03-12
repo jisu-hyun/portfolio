@@ -1,35 +1,35 @@
 # portfolio
 
-개인 포트폴리오 사이트. Next.js(App Router) + Tailwind + Framer Motion.
+개인 포트폴리오 사이트입니다. Next.js(App Router), Tailwind CSS, Framer Motion으로 구성되어 있습니다.
 
-## 실행
+## 실행 방법
 
 ```bash
 npm install
 npm run dev
 ```
 
-브라우저에서 http://localhost:3000 (또는 터미널에 찍힌 주소) 열면 됨.  
-루트에서 404 나오면 `npx next dev --hostname 127.0.0.1 --port 3000` 로 한 번 더 시도해보면 됨.
+실행 후 브라우저에서 http://localhost:3000 (또는 터미널에 표시된 주소)로 접속하시면 됩니다.  
+루트 경로에서 404가 발생할 경우, `npx next dev --hostname 127.0.0.1 --port 3000` 으로 다시 실행해 보시는 것을 권장드립니다.
 
-## 빌드
+## 빌드 및 배포
 
 ```bash
 npm run build
 npm run start
 ```
 
-## 사용한 것
+## 기술 스택
 
 - Next.js 16, React 19
 - Tailwind CSS 4
-- Framer Motion (스크롤/스태거 애니메이션)
+- Framer Motion (스크롤·스태거 애니메이션)
 - Geist 폰트
 
-## 폴더 대략
+## 프로젝트 구조
 
-- `src/app/(main)/page.tsx` — 메인 한 페이지 (Hero ~ Contact)
+- `src/app/(main)/page.tsx` — 메인 페이지 (Hero ~ Contact)
 - `src/components/` — Nav, Footer, Section, Button, Tag, AnimateIn
-- `src/lib/site.ts` — 이름/소개/프로젝트 목록 등 문구
+- `src/lib/site.ts` — 이름, 소개 문구, 프로젝트 목록 등 콘텐츠
 
-문구·링크 수정은 `site.ts` 보면 됨.
+문구나 링크를 수정하실 때는 `site.ts`를 참고해 주시면 됩니다.
