@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "ulimit -n 10240 2>/dev/null || true; next dev -H 127.0.0.1 --webpack",
+    "dev:fresh": "rm -f .next/dev/lock && (ulimit -n 10240 2>/dev/null || true) && next dev -H 127.0.0.1 --webpack",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -H 127.0.0.1",
+    "prod": "npm run build && next start -H 127.0.0.1 -p 3005",
     "lint": "eslint"
   },
   "dependencies": {

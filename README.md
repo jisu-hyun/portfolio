@@ -1,35 +1,25 @@
-# portfolio
+# Portfolio
 
-개인 포트폴리오 사이트입니다. Next.js(App Router), Tailwind CSS, Framer Motion으로 구성되어 있습니다.
+## 개발 서버 실행
 
-## 실행 방법
+**반드시 이 폴더에서** 실행하세요.
 
 ```bash
-npm install
+cd "/Users/js/Data Canvas/portfolio"
 npm run dev
 ```
 
-실행 후 브라우저에서 http://localhost:3000 (또는 터미널에 표시된 주소)로 접속하시면 됩니다.  
-루트 경로에서 404가 발생할 경우, `npx next dev --hostname 127.0.0.1 --port 3000` 으로 다시 실행해 보시는 것을 권장드립니다.
+실행 후 브라우저에서 http://127.0.0.1:3000 접속. (다른 포트면 터미널에 표시된 주소 사용)
 
-## 빌드 및 배포
+## 포트 정리 후 서버만 하나 띄우기
+
+다른 터미널/이전에 켜 둔 서버 때문에 포트가 꽉 찼다면, **한 번만** 아래를 터미널에 붙여넣어 실행하세요. (3000~3005 사용 중인 프로세스 종료 후 dev 실행)
 
 ```bash
-npm run build
-npm run start
+cd "/Users/js/Data Canvas/portfolio"
+for p in 3000 3001 3002 3003 3004 3005; do lsof -ti :$p | xargs kill -9 2>/dev/null; done
+rm -f .next/dev/lock
+npm run dev
 ```
 
-## 기술 스택
-
-- Next.js 16, React 19
-- Tailwind CSS 4
-- Framer Motion (스크롤·스태거 애니메이션)
-- Geist 폰트
-
-## 프로젝트 구조
-
-- `src/app/(main)/page.tsx` — 메인 페이지 (Hero ~ Contact)
-- `src/components/` — Nav, Footer, Section, Button, Tag, AnimateIn
-- `src/lib/site.ts` — 이름, 소개 문구, 프로젝트 목록 등 콘텐츠
-
-문구나 링크를 수정하실 때는 `site.ts`를 참고해 주시면 됩니다.
+이후에는 **http://127.0.0.1:3000** 으로 접속.
