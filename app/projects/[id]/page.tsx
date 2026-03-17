@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { featuredProjects } from "@/lib/site";
 
+export const runtime = "edge";
+
 type PageProps = {
   params: Promise<{ id: string }>;
 };

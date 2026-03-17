@@ -23,6 +23,9 @@ export const metadata: Metadata = {
   title: "현지수의 포트폴리오",
   description: "Data-Focused Developer · HyunJisu 포트폴리오",
   metadataBase: new URL("https://example.com"),
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     title: "현지수의 포트폴리오",
     description: "Data-Focused Developer · HyunJisu 포트폴리오",
