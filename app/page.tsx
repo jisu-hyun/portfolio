@@ -67,7 +67,7 @@ export default function Home() {
                   </h1>
                 </AnimateIn>
                 <AnimateIn delay={0.12}>
-                  <div className="mt-4 text-fluid-sm font-semibold tracking-[0.18em] text-white/55 sm:mt-5">
+                  <div className="mt-4 text-fluid-xs font-semibold tracking-[0.18em] text-white/55 sm:mt-5">
                     {site.brandlineEn}
                   </div>
                 </AnimateIn>
@@ -293,7 +293,7 @@ export default function Home() {
         </ScrollRevealSection>
 
         <ScrollRevealSection id="contact" sectionTitle="CONTACT">
-          <div className="mt-8 w-full max-w-md mx-auto">
+          <div className="mt-8 w-full max-w-xl mx-auto">
             <div className="glass rounded-2xl border border-white/15 p-5 sm:rounded-3xl sm:p-6 md:p-8">
               <ContactForm
                 toEmail={site.email}

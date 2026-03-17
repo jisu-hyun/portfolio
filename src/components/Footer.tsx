@@ -16,12 +16,6 @@ export function Footer() {
           >
             GitHub
           </a>
-          <a
-            href={`mailto:${site.email}`}
-            className="text-white/70 hover:text-white"
-          >
-            Email
-          </a>
         </div>
       </div>
     </footer>
