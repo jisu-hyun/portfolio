@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #05060a;
+  --background: #0f1219;
   --foreground: #e9eaf0;
   --muted: #a7aab8;
-  --card: rgba(255, 255, 255, 0.06);
-  --card-border: rgba(255, 255, 255, 0.12);
+  --card: rgba(255, 255, 255, 0.08);
+  --card-border: rgba(255, 255, 255, 0.16);
   --ring: rgba(136, 174, 255, 0.7);
 
   --text-fluid-xs: clamp(1.125rem, 0.85rem + 0.65vw, 1.25rem);
@@ -20,7 +20,7 @@
   --text-fluid-hero: clamp(4.75rem, 5.8vw + 2rem, 7rem);
   --text-fluid-hero-sm: clamp(3.75rem, 4.6vw + 1.5rem, 5.5rem);
 
-  --space-section-y: clamp(3.25rem, 5vw + 1.25rem, 6.5rem);
+  --space-section-y: clamp(5rem, 7vw + 2.5rem, 11rem);
   --space-section-x: clamp(1rem, 2vw + 0.5rem, 1.5rem);
   --space-card: clamp(1rem, 1.5vw + 0.75rem, 1.5rem);
   --space-gap: clamp(0.5rem, 1vw + 0.25rem, 1rem);
@@ -35,14 +35,15 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #05060a;
+    --background: #0f1219;
     --foreground: #e9eaf0;
   }
 }
 
 html {
-  overflow-x: hidden;
-  background-color: #05060a;
+  overflow: hidden;
+  background-color: #0f1219;
+  height: 100%;
 }
 
 body {
@@ -53,8 +54,11 @@ body {
   font-size: var(--text-fluid-base);
   line-height: 1.6;
   letter-spacing: -0.01em;
-  min-height: 100dvh;
+  min-height: 100%;
   overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
   text-rendering: geometricPrecision;
   padding-top: 88px;
 }
@@ -145,17 +149,17 @@ body {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .glass-strong {
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 @keyframes card-glow {
@@ -225,6 +229,7 @@ body {
 .project-thumb {
   background: linear-gradient(135deg, var(--thumb-start, rgba(120, 170, 255, 0.25)), var(--thumb-end, rgba(80, 200, 255, 0.15)));
   border-radius: 1rem;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .project-card {
@@ -248,12 +253,27 @@ body {
 .project-card:hover .project-thumb {
   transform: scale(1.02);
 }
-.project-thumb {
-  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
 
 .scroll-cue-arrow {
   animation: scroll-cue-bounce 2s ease-in-out infinite;
+}
+
+@keyframes success-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.success-reveal {
+  animation: success-reveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.success-reveal-card {
+  animation: success-reveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+  opacity: 0;
 }
 
 @keyframes scroll-cue-bounce {
@@ -292,6 +312,12 @@ body {
   }
   .scroll-cue-arrow {
     animation: none;
+  }
+  .success-reveal,
+  .success-reveal-card {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
   .cursor-glow {
     display: none;

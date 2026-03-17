@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
 import { featuredProjects } from "@/lib/site";
 
 type PageProps = {
@@ -9,32 +11,20 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   const p = featuredProjects.find((x) => x.id === id);
 
   if (!p) {
-    return (
-      <main className="mx-auto w-full max-w-screen-2xl px-3 sm:px-4 md:px-6 py-[var(--space-section-y)]">
-        <div className="glass rounded-2xl border border-white/10 p-6 sm:rounded-3xl sm:p-8">
-          <div className="text-fluid-xl font-extrabold tracking-tight text-white">프로젝트를 찾을 수 없어요</div>
-          <a
-            href="/#projects"
-            className="mt-5 inline-flex w-fit items-center justify-center rounded-lg bg-white/10 px-4 py-2 text-fluid-xs font-semibold text-white/80 hover:bg-white/15"
-          >
-            프로젝트 목록으로
-          </a>
-        </div>
-      </main>
-    );
+    notFound();
   }
 
   const primaryLink = p.links.find((l) => l.kind === "primary") ?? p.links[0];
   const otherLinks = p.links.filter((l) => l !== primaryLink);
 
   return (
-    <main className="mx-auto w-full max-w-screen-2xl px-3 sm:px-4 md:px-6 py-[var(--space-section-y)]">
-      <a
+    <main className="mx-auto w-full max-w-screen-2xl px-6 sm:px-8 md:px-10 lg:px-12 py-[var(--space-section-y)]">
+      <Link
         href="/#projects"
         className="inline-flex w-fit items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-fluid-xs font-semibold text-white/70 hover:bg-white/10 hover:text-white"
       >
         ← 프로젝트로 돌아가기
-      </a>
+      </Link>
 
       <div className="mt-5 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] shadow-[0_28px_90px_rgba(0,0,0,.55)]">
         {p.coverImage ? p.id === "jj" ? (
@@ -52,7 +42,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             <img
               src={p.coverImage.src}
               alt={p.coverImage.alt}
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover object-top"
               loading="eager"
             />
             <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,.15),rgba(0,0,0,.55))]" />
@@ -162,35 +152,35 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
           {!p.writeup ? (
             <div className="mt-8 grid gap-4 md:grid-cols-2">
-            <div className="glass rounded-2xl border border-white/10 p-5 sm:rounded-3xl sm:p-6">
-              <div className="text-fluid-xs font-semibold tracking-[0.22em] text-white/50">PROBLEM</div>
-              <div className="mt-3 text-fluid-sm leading-8 text-white/75 md:text-fluid-base">{p.problem}</div>
+              <div className="glass rounded-2xl border border-white/10 p-5 sm:rounded-3xl sm:p-6">
+                <div className="text-fluid-xs font-semibold tracking-[0.22em] text-white/50">PROBLEM</div>
+                <div className="mt-3 text-fluid-sm leading-8 text-white/75 md:text-fluid-base">{p.problem}</div>
+              </div>
+              <div className="glass rounded-2xl border border-white/10 p-5 sm:rounded-3xl sm:p-6">
+                <div className="text-fluid-xs font-semibold tracking-[0.22em] text-white/50">TOOLS</div>
+                <div className="mt-3 text-fluid-sm leading-8 text-white/75 md:text-fluid-base">{p.tools}</div>
+              </div>
             </div>
-            <div className="glass rounded-2xl border border-white/10 p-5 sm:rounded-3xl sm:p-6">
-              <div className="text-fluid-xs font-semibold tracking-[0.22em] text-white/50">TOOLS</div>
-              <div className="mt-3 text-fluid-sm leading-8 text-white/75 md:text-fluid-base">{p.tools}</div>
-            </div>
-          </div>
           ) : null}
 
           {!p.writeup ? (
             <div className="mt-4 glass rounded-2xl border border-white/10 p-5 sm:rounded-3xl sm:p-6">
-            <div className="text-fluid-xs font-semibold tracking-[0.22em] text-white/50">LEARNINGS</div>
-            <ul className="mt-3 grid gap-2">
-              {p.learnings.map((x) => (
-                <li key={x} className="text-fluid-sm leading-8 text-white/75 md:text-fluid-base">
-                  - {x}
-                </li>
-              ))}
-            </ul>
-          </div>
+              <div className="text-fluid-xs font-semibold tracking-[0.22em] text-white/50">LEARNINGS</div>
+              <ul className="mt-3 grid gap-2">
+                {p.learnings.map((x) => (
+                  <li key={x} className="text-fluid-sm leading-8 text-white/75 md:text-fluid-base">
+                    - {x}
+                  </li>
+                ))}
+              </ul>
+            </div>
           ) : null}
 
           {!p.writeup ? (
             <div className="mt-4 glass rounded-2xl border border-white/10 p-5 sm:rounded-3xl sm:p-6">
-            <div className="text-fluid-xs font-semibold tracking-[0.22em] text-white/50">WHY IT MATTERS</div>
-            <div className="mt-3 text-fluid-sm leading-8 text-white/75 md:text-fluid-base">{p.whyGood}</div>
-          </div>
+              <div className="text-fluid-xs font-semibold tracking-[0.22em] text-white/50">WHY IT MATTERS</div>
+              <div className="mt-3 text-fluid-sm leading-8 text-white/75 md:text-fluid-base">{p.whyGood}</div>
+            </div>
           ) : null}
 
           {p.buildSummary?.length ? (
@@ -270,12 +260,12 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </div>
       </div>
 
-      <a
+      <Link
         href="/#projects"
         className="mt-8 inline-flex w-fit items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-fluid-xs font-semibold text-white/70 hover:bg-white/10 hover:text-white"
       >
         ← 프로젝트로 돌아가기
-      </a>
+      </Link>
     </main>
   );
 }

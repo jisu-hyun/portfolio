@@ -1,59 +1,66 @@
 "use client";
 
 import * as React from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-
-const Y_OFFSET = 56;
-const OPACITY_RANGE: [number, number] = [0.82, 1];
+import { motion } from "framer-motion";
 
 type ScrollRevealSectionProps = {
   id?: string;
-  eyebrow: string;
-  title: string;
+  /** 대문자 섹션 제목 (예: PROJECTS, EXPERIENCE). 있으면 중앙 정렬 h2 + 구분선 렌더 */
+  sectionTitle?: string;
+  eyebrow?: string;
+  title?: string;
   subtitle?: string;
   titleClassName?: string;
   children: React.ReactNode;
 };
 
-/**
- * Section과 동일한 구조 + 스크롤에 따라 아래에서 위로 올라오는 모션.
- */
+const sectionHeadingClass =
+  "font-extrabold tracking-tight text-white text-fluid-3xl md:text-fluid-4xl";
+
 export function ScrollRevealSection({
   id,
-  eyebrow,
-  title,
+  sectionTitle,
+  eyebrow = "",
+  title = "",
   subtitle = "",
   titleClassName = "",
   children,
 }: ScrollRevealSectionProps) {
-  const ref = React.useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 1", "start 0.22"],
-  });
-  const y = useTransform(scrollYProgress, [0, 1], [Y_OFFSET, 0]);
-  const opacity = useTransform(scrollYProgress, [0, 1], OPACITY_RANGE);
+  const hasInlineTitle = eyebrow || title || subtitle;
 
   return (
     <motion.section
-      ref={ref}
       id={id}
-      style={{ y, opacity }}
-      className="scroll-mt-28 py-[var(--space-section-y)] md:scroll-mt-32"
+      className="scroll-mt-[76px] py-[var(--space-section-y)] sm:scroll-mt-[96px]"
+      initial={{ opacity: 0, y: 78, scale: 0.985, filter: "blur(10px)" }}
+      whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+      viewport={{ once: true, amount: 0.22 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="mx-auto w-full max-w-screen-2xl px-3 sm:px-4 md:px-6">
-        <div className="mb-6 sm:mb-8 md:mb-10">
-          <h2
-            className={`font-semibold tracking-tight text-white md:text-fluid-4xl text-fluid-3xl ${titleClassName}`}
-          >
-            {title}
-          </h2>
-          {subtitle ? (
-            <p className="mt-3 max-w-2xl text-fluid-sm leading-7 text-white/70 md:text-fluid-base">
-              {subtitle}
-            </p>
-          ) : null}
-        </div>
+      <div className="mx-auto w-full max-w-screen-2xl px-6 sm:px-8 md:px-10 lg:px-12">
+        {sectionTitle ? (
+          <div className="mb-6 flex flex-col items-center sm:mb-8 md:mb-10">
+            <h2 className={sectionHeadingClass + (titleClassName ? ` ${titleClassName}` : "")}>
+              {sectionTitle}
+            </h2>
+            <div className="mt-2 h-0.5 w-12 rounded-full bg-white/40" aria-hidden />
+          </div>
+        ) : null}
+        {hasInlineTitle ? (
+          <div className="mb-6 sm:mb-8 md:mb-10">
+            {eyebrow ? (
+              <p className="mb-2 text-fluid-xs font-semibold tracking-[0.2em] text-white/70">
+                {eyebrow}
+              </p>
+            ) : null}
+            {title ? <h2 className={sectionHeadingClass + (titleClassName ? ` ${titleClassName}` : "")}>{title}</h2> : null}
+            {subtitle ? (
+              <p className="mt-3 max-w-2xl text-fluid-sm leading-7 text-white/80 md:text-fluid-base">
+                {subtitle}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
         {children}
       </div>
     </motion.section>

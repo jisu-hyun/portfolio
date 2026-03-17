@@ -1,5 +1,3 @@
-import { site } from "@/lib/site";
-
 const items = [
   { href: "#projects", label: "Projects" },
   { href: "#experience", label: "Experience" },
@@ -11,7 +9,7 @@ export function Nav() {
   return (
     <div className="fixed inset-x-0 top-0 z-50">
       <div className="pointer-events-none absolute inset-0 border-b border-white/10 bg-[linear-gradient(180deg,rgba(0,0,0,.72),rgba(0,0,0,.38))] backdrop-blur-[14px]" />
-      <header className="relative mx-auto flex w-full max-w-screen-2xl items-center justify-center px-3 pb-3 pt-[calc(env(safe-area-inset-top)+0.75rem)] sm:px-4 sm:pb-4 sm:pt-[calc(env(safe-area-inset-top)+1rem)] md:px-6">
+      <header className="relative mx-auto flex w-full max-w-screen-2xl items-center justify-center px-6 pb-3 pt-[calc(env(safe-area-inset-top)+0.75rem)] sm:px-8 sm:pb-4 sm:pt-[calc(env(safe-area-inset-top)+1rem)] md:px-10 lg:px-12">
         <nav className="pointer-events-auto hidden items-center md:flex" aria-label="Primary">
           <div className="glass rounded-full border border-white/10 bg-white/[0.03] p-1 shadow-[0_10px_40px_rgba(0,0,0,.35)]">
             <div className="flex items-center gap-0.5">

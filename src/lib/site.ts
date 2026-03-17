@@ -163,6 +163,10 @@ export const featuredProjects: FeaturedProject[] = [
     order: 3,
     title: "수원시 의류수거함 위치 지도",
     category: "공공데이터 · 위치/시설",
+    coverImage: {
+      src: "/images/projects/suwon-clothing-bin.png",
+      alt: "수원시 의류수거함 현황 - 구별 통계와 위치 지도",
+    },
     oneLiner:
       "수원시 의류수거함 1,442개를 정제해 구별로 탐색 가능한 인터랙티브 지도로 구현했습니다.",
     period: "2025.07",
@@ -280,6 +284,53 @@ export const featuredProjects: FeaturedProject[] = [
     links: [
       { label: "Live", href: "https://nurse-treemap.pages.dev/", kind: "primary" },
       { label: "GitHub", href: "https://github.com/jisu-hyun/nurse-treemap", kind: "secondary" },
+    ],
+  },
+  {
+    id: "business-websit",
+    order: 6,
+    title: "대동카아트",
+    category: "웹 · 서비스",
+    coverImage: {
+      src: "/images/projects/business-websit.png",
+      alt: "대동카아트 비즈니스 웹사이트 메인 화면",
+    },
+    oneLiner:
+      "대구 차량광고·도색·랩핑 전문업체 대동카아트의 기업 홍보 사이트를 Next.js로 구축하고, 갤러리 관리자·문의 API·SEO·사이트맵까지 운영에 맞춰 구성했습니다.",
+    period: "2026.02",
+    keyPoints: [
+      "회사소개(인사말·회사소개·조직도·오시는길), 사업분야(도색·랩핑), 포토갤러리(승용·승합·소형/중대형 화물·학원차/버스), 주요거래처·FAQ·연락 플로팅 버튼",
+      "관리자 전용 갤러리 페이지로 카테고리별 시공 사진 등록·순서 변경·삭제, Supabase 연동·GitHub 연동(Cloudflare Pages 배포)으로 콘텐츠 반영",
+      "문의·공지·FAQ API(Supabase), 사이트맵 자동 생성, 반응형·SEO·오픈그래프 메타 구성으로 실제 도메인(daedongcarart.com) 운영",
+    ],
+    flow: ["메인(히어로·갤러리·인사·연락)", "회사소개", "사업분야", "포토갤러리", "주요거래처·FAQ", "관리자 갤러리"],
+    writeup: {
+      intro:
+        "차량광고·도색·랩핑 전문업체 대동카아트의 기업 홍보 웹사이트입니다. Next.js App Router와 TypeScript·Tailwind로 회사 소개, 사업 분야(도색/랩핑), 카테고리별 포토갤러리(승용차·승합차·소형/중대형 화물·학원차/버스), 주요거래처·FAQ·연락처를 한 사이트에서 제공합니다. 갤러리 콘텐츠는 비공개 관리자 페이지에서 등록·수정할 수 있도록 하고, 문의·공지·FAQ는 Supabase API로 연동해 실제 비즈니스 운영에 맞춰 구축했습니다.",
+      tech: ["Next.js 14", "TypeScript", "Tailwind CSS", "App Router", "Supabase", "Cloudflare Pages", "사이트맵 생성"],
+      problemSolving: [
+        "기업 정보·사업 소개·시공 갤러리·연락을 한곳에서 보여 주고, 모바일에서도 이용하기 쉽게 반응형과 터치 친화 UI를 적용했습니다.",
+        "갤러리 사진을 코드 수정 없이 관리할 수 있도록 비공개 관리자 페이지를 만들고, Supabase·GitHub 연동으로 배포 시 자동 반영되도록 구성했습니다.",
+        "문의 접수·공지·FAQ를 Supabase로 저장·조회하고, SEO·오픈그래프·사이트맵을 설정해 검색과 공유에 유리하게 했습니다.",
+      ],
+      results: [
+        "실제 도메인(daedongcarart.com)으로 서비스 중이며, 회사 소개부터 갤러리·문의까지 한 사이트에서 운영할 수 있게 했습니다.",
+        "관리자 매뉴얼·설정 가이드를 제공해 비개발자도 갤러리와 콘텐츠를 안정적으로 관리할 수 있도록 했습니다.",
+      ],
+    },
+    problem:
+      "기업 정보와 사업 소개·시공 사례·연락처를 한곳에서 보여 주고, 갤러리 등 콘텐츠를 운영자가 직접 갱신할 수 있는 홍보 사이트가 필요했습니다.",
+    learnings: [
+      "회사소개·사업분야·갤러리·FAQ 등 비즈니스 웹에 필요한 정보 구조와 페이지 흐름을 설계·구현했습니다.",
+      "Supabase API·관리자 페이지·배포 연동을 한 번에 구성해, 실제 클라이언트 사이트 운영 요구에 맞춘 경험을 쌓았습니다.",
+    ],
+    tools: "Next.js 14 · TypeScript · Tailwind CSS · Supabase · Cloudflare Pages · 사이트맵 생성",
+    whyGood:
+      "실제 비즈니스(대동카아트) 운영 사이트로, 반응형·SEO·관리자·API·배포까지 한 프로젝트에서 설계·구현한 경험을 담았습니다.",
+    tags: ["Next.js", "TypeScript", "Tailwind", "Supabase", "반응형", "SEO"],
+    links: [
+      { label: "Live", href: "https://daedongcarart.com", kind: "primary" },
+      { label: "GitHub", href: "https://github.com/jisu-hyun/business-websit", kind: "secondary" },
     ],
   },
 ];

@@ -20,17 +20,12 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "HyunJisu | Data Analyst",
-  description:
-    "공공·도시 데이터를 정제하고, 사람들이 바로 이해하고 쓰는 웹 서비스로 구현합니다.",
+  title: "현지수의 포트폴리오",
+  description: "Data-Focused Developer · HyunJisu 포트폴리오",
   metadataBase: new URL("https://example.com"),
-  icons: {
-    icon: "/favicon.ico",
-  },
   openGraph: {
-    title: "HyunJisu | Data Analyst",
-    description:
-      "공공·도시 데이터를 정제하고, 사람들이 바로 이해하고 쓰는 웹 서비스로 구현합니다.",
+    title: "현지수의 포트폴리오",
+    description: "Data-Focused Developer · HyunJisu 포트폴리오",
     type: "website",
   },
   robots: {
@@ -54,7 +49,7 @@ export default function RootLayout({
     <html lang="ko" suppressHydrationWarning>
       <body
         className={`${sans.variable} ${display.variable} ${mono.variable} antialiased`}
-        style={{ backgroundColor: "#05060a", color: "#e9eaf0" }}
+        style={{ backgroundColor: "#0f1219", color: "#e9eaf0" }}
         suppressHydrationWarning
       >
         <CursorGlow />
