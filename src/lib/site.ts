@@ -2,7 +2,7 @@ export const site = {
   nameKo: "현지수",
   nameEn: "HyunJisu",
   headlineLines: ["Data Analyst", "HyunJisu"],
-  brandlineEn: "Spatial Data Analysis · Data Visualization · Web Development",
+  brandlineEn: "Data Analysis · Visualization · Web",
   intro: [
     "안드로이드 개발을 시작으로",
     "웹 개발, 데이터 분석, 시각화 등 다양한 기술 영역을 경험해왔습니다.",
