@@ -209,24 +209,82 @@ export default function Home() {
               <StaggerGrid className="grid gap-3 sm:gap-4">
                 {[
                   {
-                    title: "서울시청 · 조경과",
-                    period: "2025.04.01 ~ 재직중",
-                    body: "가로수 데이터 관리 시스템(트리맵) · 담당업무: 가로수 및 녹지 데이터 현황관리(강북권)",
+                    org: "서울시청",
+                    team: "조경과",
+                    period: "2025.04. ~ 2026.04. (1년)",
+                    tagline: "가로수 및 녹지 데이터 현황관리(강북권)",
+                    roles: ["Data 검수/정합성", "문서 표준화", "시각자료 제작", "업무지원"],
+                    items: [
+                      {
+                        title: "가로수 관리시스템(TreeMap) 데이터 관리",
+                        period: "",
+                        desc: [
+                          "가로수·보호수·단풍길 데이터 검토 및 오류 정비",
+                        ],
+                      },
+                      {
+                        title: "행정자료 취합 및 문서 표준화 지원",
+                        period: "",
+                        desc: [],
+                      },
+                      {
+                        title: "정책 안내 자료 제작",
+                        period: "",
+                        desc: [
+                          "제설 매뉴얼 카드뉴스·포스터 제작",
+                          "한뼘정원 조성사업 시각자료 제작",
+                        ],
+                      },
+                    ],
                   },
                 ].map((x) => (
-                  <StaggerItem key={x.title}>
-                    <div className="card-hover-glow rounded-2xl border border-white/12 bg-white/[0.02] p-4 sm:p-5">
-                      <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-2">
-                        <div className="text-fluid-sm font-semibold tracking-tight text-white md:text-fluid-base">
-                          {x.title}
-                        </div>
-                        <div className="text-fluid-xs font-semibold tracking-[0.22em] text-white/45">
-                          {x.period}
-                        </div>
+                  <StaggerItem key={`${x.org}-${x.team}`}>
+                    <div className="card-hover-glow rounded-2xl bg-white/[0.04] p-5 sm:p-6">
+                      <div className="min-w-0">
+                          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+                            <div className="min-w-0">
+                              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-2">
+                                <div className="text-fluid-base font-extrabold tracking-[-0.02em] text-white">
+                                  <span>{x.org}</span>
+                                  <span className="mx-4 text-white/55">·</span>
+                                  <span>{x.team}</span>
+                                </div>
+                                {x.tagline ? (
+                                  <span className="ml-3 rounded-full border border-white/20 bg-white/[0.1] px-3.5 py-1.5 text-fluid-xs font-semibold text-white/85">
+                                    {x.tagline}
+                                  </span>
+                                ) : null}
+                              </div>
+                            </div>
+                            <div className="shrink-0 text-right">
+                              <div className="text-sm font-semibold tracking-[0.08em] text-white/70 sm:text-base">{x.period}</div>
+                            </div>
+                          </div>
+
+                          <div className="mt-6 space-y-6">
+                            {x.items.map((it, idx) => (
+                              <div key={it.title} className={idx > 0 ? "border-t border-white/12 pt-6" : ""}>
+                                <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-2">
+                                  <div className="text-fluid-sm font-semibold tracking-tight text-white/95 md:text-fluid-base">
+                                    {it.title}
+                                  </div>
+                                  {it.period ? (
+                                    <div className="text-fluid-xs font-semibold tracking-[0.22em] text-white/45">
+                                      {it.period}
+                                    </div>
+                                  ) : null}
+                                </div>
+                                {it.desc.length > 0 ? (
+                                  <ul className="mt-2.5 list-disc space-y-2 pl-5 text-fluid-sm leading-7 text-white/80 md:text-fluid-base md:leading-8">
+                                    {it.desc.map((d) => (
+                                      <li key={d}>{d}</li>
+                                    ))}
+                                  </ul>
+                                ) : null}
+                              </div>
+                            ))}
+                          </div>
                       </div>
-                      <p className="mt-2 text-fluid-sm leading-7 text-white/70 sm:mt-3 md:text-fluid-base">
-                        {x.body}
-                      </p>
                     </div>
                   </StaggerItem>
                 ))}
@@ -245,45 +303,35 @@ export default function Home() {
                         <path d="M16 18l6-6-6-6" /><path d="M8 6l-6 6 6 6" />
                       </svg>
                     ),
-                    items: ["Python", "JavaScript", "TypeScript", "SQL", "Kotlin"],
+                    items: ["Python", "SQL", "JavaScript", "TypeScript"],
                   },
                   {
-                    title: "Frontend",
-                    icon: (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="2" y="3" width="20" height="14" rx="2" />
-                        <path d="M8 21h8" /><path d="M12 17v4" />
-                      </svg>
-                    ),
-                    items: ["React", "Next.js", "Tailwind CSS", "Vite", "HTML/CSS", "Recharts"],
-                  },
-                  {
-                    title: "Data · 시각화",
+                    title: "Data & Geospatial",
                     icon: (
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M3 3v18h18" />
                         <path d="M18 17V9" /><path d="M13 17V5" /><path d="M8 17v-3" />
                       </svg>
                     ),
-                    items: ["Pandas", "GeoPandas", "NumPy", "Matplotlib", "Seaborn", "Leaflet", "공공데이터"],
+                    items: ["Pandas", "GeoPandas", "NumPy", "Matplotlib", "Seaborn", "GeoJSON", "proj4", "shapefile", "Turf.js"],
                   },
                   {
-                    title: "Tool · 환경",
+                    title: "Data Visualization & Service",
                     icon: (
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <circle cx="12" cy="12" r="3" />
-                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                        <rect x="2" y="3" width="20" height="14" rx="2" />
+                        <path d="M8 21h8" /><path d="M12 17v4" />
                       </svg>
                     ),
-                    items: ["Git", "Cloudflare", "Excel", "Node.js", "Supabase"],
+                    items: ["React", "Next.js", "Leaflet", "React-Leaflet", "Recharts", "Tailwind CSS", "Node.js"],
                   },
                 ].map((c) => (
                   <div key={c.title} className="border-b border-white/10 last:border-0 pb-6 last:pb-0 sm:pb-8 sm:last:pb-0">
-                    <div className="mb-3 flex items-center gap-2 sm:mb-4">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-white/5 text-white/80">
+                    <div className="mb-3 flex items-start gap-3 sm:mb-4">
+                      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-white/5 text-white/80">
                         {c.icon}
                       </span>
-                      <span className="text-fluid-sm font-semibold text-white md:text-fluid-base">{c.title}</span>
+                      <div className="min-w-0 text-fluid-sm font-semibold text-white md:text-fluid-base">{c.title}</div>
                     </div>
                     <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {c.items.map((it) => (

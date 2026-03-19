@@ -229,23 +229,56 @@ export const featuredProjects: FeaturedProject[] = [
   {
     id: "jj",
     order: 4,
-    title: "근무 스케줄링 앱",
-    category: "서비스 · 업무자동화",
+    title: "JJ — 알바생·매니저 스케줄링 앱",
+    category: "앱 · 스케줄링",
     coverImage: {
-      src: "/images/projects/jj.png",
-      alt: "JJ 프로젝트 로고",
+      src: "/images/projects/jj-main.png",
+      alt: "JJ 로그인 화면",
     },
     oneLiner:
-      "현장에서 반복되는 일정 공유/조율 문제를 줄이기 위해 근무 스케줄을 등록·공유하는 앱을 구현했습니다.",
-    period: "2025.07",
-    problem: "현장에서는 일정 공유가 흩어져 있어 누락/중복이 자주 발생했고, 표준화된 입력/조회가 필요했습니다.",
-    learnings: [
-      "업무 프로세스(입력→검증→조회)를 화면 흐름으로 설계하고 구현하는 경험을 쌓았습니다.",
+      "알바생과 매니저가 같은 앱을 쓰되, 각자 필요한 화면과 기능이 다르게 보이도록 나눴습니다. 알바생은 근무 일정 확인/신청을, 매니저는 스케줄 편성·공지·초대를 한 곳에서 처리할 수 있습니다.",
+    period: "2024.07",
+    writeup: {
+      intro:
+        "알바생과 매니저가 같은 앱을 쓰지만 요구가 달라서, 시작 화면에서 근로자 모드/관리자 모드로 진입을 나누고 각 역할에 맞는 화면 흐름으로 이어지게 구성했습니다.\n인증과 공유 데이터는 Firebase로 처리하고, 기기 내 상태/캐시는 Room으로 분리해 “로컬-원격” 책임을 나눴습니다.\n또한 초대 메일 같은 비동기 작업은 WorkManager로 분리해 UI 흐름과 백그라운드 작업이 섞이지 않게 했습니다.",
+      tech: [
+        "Kotlin",
+        "Jetpack Compose(Material3)",
+        "Navigation Compose",
+        "Firebase(Auth/Firestore/Analytics)",
+        "Room(KSP)",
+        "WorkManager",
+      ],
+      problemSolving: [
+        "역할 기반 UX 분리: 근로자/관리자 요구가 달라서 진입점부터 분기하고 화면 흐름을 분리해 복잡도를 낮췄습니다.",
+        "로컬/원격 데이터 역할 분담: 인증·공유 데이터는 Firestore, 기기 내 상태/캐시는 Room으로 분리해 데이터 책임을 명확히 했습니다.",
+        "백그라운드 작업 분리: 메일 전송 같은 작업은 WorkManager로 분리해 앱이 백그라운드에서도 안정적으로 처리될 수 있게 구성했습니다.",
+        "공개 저장소 보안 정리: Firebase 설정 파일(`google-services.json`)과 SMTP 키 같은 민감정보는 저장소에 포함하지 않고 로컬 설정 주입 방식으로 정리했습니다.",
+      ],
+      results: [
+        "근로자/관리자 모드가 분리되어 사용 흐름이 명확해졌습니다.",
+        "Firebase + Room 조합으로 원격/로컬 데이터가 분리되어 기능 확장 시 구조가 유지됩니다.",
+        "WorkManager로 비동기 작업을 분리해 UI와 작업 처리의 결합도를 낮췄습니다.",
+      ],
+    },
+    keyPoints: [
+      "근로자/관리자 2가지 역할 기준으로 로그인·화면 흐름 분리",
+      "Firebase(Auth/Firestore) + Room으로 원격/로컬 데이터 책임 분리",
+      "WorkManager로 초대 메일 등 백그라운드 작업 분리",
+      "민감정보는 저장소에서 제외하고 로컬 주입으로 정리",
     ],
-    tools: "Kotlin · Android · CRUD/폼 UX",
+    problem:
+      "근로자/관리자 요구가 다른 환경에서, 하나의 앱 안에서 역할별 흐름을 분리하면서도 데이터 동기화/운영 기능을 안정적으로 제공해야 했습니다.",
+    learnings: [
+      "역할 기반 UX를 분리하면 기능이 늘어나도 화면 흐름이 덜 복잡해진다는 걸 체감했습니다.",
+      "원격(Firestore)과 로컬(Room) 책임을 나누어 확장 가능한 구조로 유지하는 방법을 익혔습니다.",
+      "WorkManager로 비동기 작업을 UI에서 분리해 안정성을 높이는 흐름을 경험했습니다.",
+      "공개 저장소에서 민감정보를 분리/주입하는 운영 습관을 정리했습니다.",
+    ],
+    tools: "Kotlin · Jetpack Compose · Firebase(Auth/Firestore) · Room · WorkManager",
     whyGood:
-      "현장 문제를 ‘데이터 입력 규칙 + 화면 흐름’으로 바꿔 누락/혼선을 줄이는 방향으로 설계했습니다.",
-    tags: ["업무자동화", "앱개발", "입력검증", "Kotlin", "Android"],
+      "근로자/관리자 역할을 기준으로 화면과 데이터 책임을 분리해, 기능이 늘어나도 유지보수 가능한 구조로 설계했습니다.",
+    tags: ["Android", "Compose", "Firebase", "Room", "WorkManager", "역할분리"],
     links: [{ label: "GitHub", href: "https://github.com/jisu-hyun/jj", kind: "primary" }],
   },
   {
