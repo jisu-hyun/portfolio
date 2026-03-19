@@ -11,6 +11,7 @@ const items = [
 
 export function Nav() {
   const [open, setOpen] = useState(false);
+  const [activeHref, setActiveHref] = useState<((typeof items)[number]["href"]) | null>(null);
   const headerRef = useRef<HTMLElement | null>(null);
 
   const hrefToId = useMemo(() => {
@@ -57,6 +58,39 @@ export function Nav() {
     };
   }, [open]);
 
+  useEffect(() => {
+    const scroller = getScroller();
+    const offsetBase = () => (headerRef.current?.getBoundingClientRect().height ?? 0) + 24;
+
+    const updateActiveFromScroll = () => {
+      let current: (typeof items)[number]["href"] | null = null;
+      for (const it of items) {
+        const id = hrefToId.get(it.href);
+        if (!id) continue;
+        const el = document.getElementById(id);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top <= offsetBase()) current = it.href;
+      }
+      setActiveHref(current);
+    };
+
+    // 초기 진입 시 hash가 있으면 우선 반영
+    if (typeof window !== "undefined" && window.location.hash) {
+      const hash = window.location.hash;
+      if (hrefToId.has(hash)) setActiveHref(hash as (typeof items)[number]["href"]);
+    }
+
+    updateActiveFromScroll();
+    scroller.addEventListener("scroll", updateActiveFromScroll, { passive: true });
+    window.addEventListener("resize", updateActiveFromScroll);
+    window.addEventListener("hashchange", updateActiveFromScroll);
+    return () => {
+      scroller.removeEventListener("scroll", updateActiveFromScroll);
+      window.removeEventListener("resize", updateActiveFromScroll);
+      window.removeEventListener("hashchange", updateActiveFromScroll);
+    };
+  }, [hrefToId]);
+
   return (
     <div className="fixed inset-x-0 top-0 z-50">
       <div className="pointer-events-none absolute inset-0 border-b border-white/10 bg-[linear-gradient(180deg,rgba(0,0,0,.72),rgba(0,0,0,.38))] backdrop-blur-[14px]" />
@@ -71,6 +105,9 @@ export function Nav() {
           <div className="glass rounded-full border border-white/10 bg-white/[0.03] p-1 shadow-[0_10px_40px_rgba(0,0,0,.35)]">
             <div className="flex items-center gap-0.5">
               {items.map((it) => (
+                (() => {
+                  const isActive = activeHref === it.href;
+                  return (
                 <a
                   key={it.href}
                   href={it.href}
@@ -78,12 +115,23 @@ export function Nav() {
                     if (!it.href.startsWith("#")) return;
                     e.preventDefault();
                     scrollToHash(it.href);
+                    setActiveHref(it.href);
                   }}
-                  className="group relative rounded-full px-4 py-2 text-fluid-sm font-semibold tracking-tight text-white/70 transition-all duration-200 hover:bg-white/5 hover:text-white active:scale-[0.98]"
+                  className={`group relative rounded-full px-4 py-2 text-fluid-sm font-semibold tracking-tight transition-all duration-200 active:scale-[0.98] ${
+                    isActive
+                      ? "bg-white/8 text-white"
+                      : "text-white/70 hover:bg-white/5 hover:text-white"
+                  }`}
                 >
                   <span className="relative z-10">{it.label}</span>
-                  <span className="pointer-events-none absolute inset-x-4 -bottom-0.5 h-px origin-left scale-x-0 bg-gradient-to-r from-[rgba(136,174,255,.0)] via-[rgba(136,174,255,.7)] to-[rgba(160,120,255,.0)] transition-transform duration-300 group-hover:scale-x-100" />
+                  <span
+                    className={`pointer-events-none absolute inset-x-4 -bottom-0.5 h-px origin-left bg-gradient-to-r from-[rgba(136,174,255,.0)] via-[rgba(136,174,255,.7)] to-[rgba(160,120,255,.0)] transition-transform duration-300 ${
+                      isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                    }`}
+                  />
                 </a>
+                  );
+                })()
               ))}
             </div>
           </div>
@@ -128,19 +176,29 @@ export function Nav() {
             </div>
             <nav className="flex flex-col gap-0.5 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-1 sm:px-6" aria-label="모바일 메뉴">
               {items.map((it) => (
+                (() => {
+                  const isActive = activeHref === it.href;
+                  return (
                 <a
                   key={it.href}
                   href={it.href}
-                  className="rounded-xl px-4 py-3.5 text-fluid-base font-semibold text-white/85 transition-colors hover:bg-white/5 hover:text-white active:bg-white/10"
+                  className={`rounded-xl px-4 py-3.5 text-fluid-base font-semibold transition-colors ${
+                    isActive
+                      ? "bg-white/10 text-white"
+                      : "text-white/85 hover:bg-white/5 hover:text-white active:bg-white/10"
+                  }`}
                   onClick={(e) => {
                     setOpen(false);
                     if (!it.href.startsWith("#")) return;
                     e.preventDefault();
+                    setActiveHref(it.href);
                     requestAnimationFrame(() => scrollToHash(it.href));
                   }}
                 >
                   {it.label}
                 </a>
+                  );
+                })()
               ))}
             </nav>
           </div>
