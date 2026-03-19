@@ -136,21 +136,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             </div>
           ) : null}
 
-          {p.flow?.length ? (
-            <div className="mt-4 glass rounded-2xl border border-white/10 p-5 sm:rounded-3xl sm:p-6">
-              <div className="text-fluid-xs font-semibold tracking-[0.22em] text-white/50">구성 순서</div>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {p.flow.map((x, i) => (
-                  <span
-                    key={`${i}-${x}`}
-                    className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-fluid-xs font-semibold text-white/70"
-                  >
-                    {x}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ) : null}
+          {/* 구성 순서 섹션 제거 */}
 
           {!p.writeup ? (
             <div className="mt-8 grid gap-4 md:grid-cols-2">
@@ -185,50 +171,9 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             </div>
           ) : null}
 
-          {p.buildSummary?.length ? (
-            <div className="mt-4 glass rounded-2xl border border-white/10 p-5 sm:rounded-3xl sm:p-6">
-              <div className="text-fluid-xs font-semibold tracking-[0.22em] text-white/50">지도 구축 요약</div>
-              <div className="mt-4 grid gap-3">
-                {p.buildSummary.map((s) => (
-                  <div key={s.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                    <div className="text-fluid-xs font-semibold text-white/80">{s.title}</div>
-                    <div className="mt-2 text-fluid-sm leading-8 text-white/70 md:text-fluid-base">{s.body}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : null}
+          {/* 지도 구축 요약 섹션 제거 */}
 
-          {p.dataSourceSummary || p.dataSources?.length ? (
-            <div className="mt-4 glass rounded-2xl border border-white/10 p-5 sm:rounded-3xl sm:p-6">
-              <div className="text-fluid-xs font-semibold tracking-[0.22em] text-white/50">데이터 출처</div>
-              {p.dataSourceSummary ? (
-                <div className="mt-3 text-fluid-sm leading-8 text-white/70 md:text-fluid-base">{p.dataSourceSummary}</div>
-              ) : null}
-              {p.dataSources?.length ? (
-                <ul className="mt-4 grid gap-2">
-                  {p.dataSources.map((d) => (
-                    <li key={d.label} className="text-fluid-sm leading-8 text-white/75 md:text-fluid-base">
-                      -{" "}
-                      {d.href ? (
-                        <a
-                          href={d.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline decoration-white/20 underline-offset-4 hover:decoration-white/40"
-                        >
-                          {d.label}
-                        </a>
-                      ) : (
-                        <span>{d.label}</span>
-                      )}
-                      {d.note ? <span className="text-white/55"> · {d.note}</span> : null}
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </div>
-          ) : null}
+          {/* 데이터 출처 섹션 제거 */}
 
           {p.disclaimer ? (
             <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-fluid-sm leading-8 text-white/65 sm:rounded-3xl sm:p-6 md:text-fluid-base">

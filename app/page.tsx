@@ -72,9 +72,9 @@ export default function Home() {
                   </div>
                 </AnimateIn>
                 <AnimateIn delay={0.16}>
-                  <div className="mt-4 max-w-2xl text-pretty text-fluid-sm leading-[2.05] tracking-[0.01em] text-white/75 sm:mt-5 space-y-4 break-keep">
+                  <div className="mt-4 max-w-3xl xl:max-w-4xl text-pretty text-fluid-sm leading-[1.82] tracking-[-0.01em] text-white/72 sm:mt-5 space-y-6 break-keep">
                     {toParagraphs(site.intro).map((p, i) => (
-                        <p key={i}>
+                        <p key={i} className="text-pretty">
                           {p.map((line, j) => (
                             <span key={j}>
                               {line}
@@ -87,12 +87,16 @@ export default function Home() {
                 </AnimateIn>
               </div>
 
-              <AnimateIn delay={0.18} as="div" className="relative hidden min-w-0 lg:block">
-                <div className="relative hero-hex-wrap overflow-hidden">
+              <AnimateIn
+                delay={0.18}
+                as="div"
+                className="relative hidden min-w-0 lg:flex lg:items-center lg:justify-center"
+              >
+                <div className="relative hero-hex-wrap w-full overflow-hidden flex items-center justify-center">
                   <img
                     src="/images/hero-hex.png"
                     alt="데이터 중심 기술 경험 요약"
-                    className="hero-hex w-[124%] max-w-[1120px] select-none opacity-100 drop-shadow-[0_50px_150px_rgba(0,0,0,.55)] -translate-x-[12%]"
+                    className="hero-hex w-full max-w-[760px] xl:max-w-[860px] select-none opacity-100 drop-shadow-[0_50px_150px_rgba(0,0,0,.55)]"
                     loading="eager"
                   />
                 </div>
@@ -106,7 +110,7 @@ export default function Home() {
           </div>
         </ScrollReveal>
 
-        <ScrollRevealSection id="projects" sectionTitle="PROJECTS">
+        <ScrollRevealSection id="projects" sectionTitle="PROJECTS" navAnchor="projects">
           <div className="mt-8 w-full">
             <StaggerGrid className="grid gap-4 sm:gap-5 lg:grid-cols-2">
                 {featuredProjects
@@ -293,7 +297,7 @@ export default function Home() {
         </ScrollRevealSection>
 
         <ScrollRevealSection id="contact" sectionTitle="CONTACT">
-          <div className="mt-8 w-full max-w-xl mx-auto">
+          <div className="mx-auto mt-8 w-full max-w-xl">
             <div className="glass rounded-2xl border border-white/15 p-5 sm:rounded-3xl sm:p-6 md:p-8">
               <ContactForm
                 toEmail={site.email}
