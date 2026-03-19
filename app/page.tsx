@@ -204,7 +204,7 @@ export default function Home() {
           </div>
         </ScrollRevealSection>
 
-        <ScrollRevealSection id="experience" sectionTitle="EXPERIENCE">
+        <ScrollRevealSection id="career" sectionTitle="CAREER">
           <div className="mt-8 w-full glass rounded-2xl border border-white/15 p-5 sm:rounded-3xl sm:p-6 md:p-8">
               <StaggerGrid className="grid gap-3 sm:gap-4">
                 {[

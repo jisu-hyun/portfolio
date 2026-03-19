@@ -63,7 +63,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           <h1 className="mt-5 text-fluid-3xl sm:text-fluid-4xl font-extrabold tracking-[-0.02em] text-white/95">
             {p.title}
           </h1>
-          <p className="mt-4 text-fluid-sm leading-8 text-white/70 md:text-fluid-base sm:whitespace-nowrap">
+          <p className="mt-4 text-fluid-sm leading-8 text-white/70 md:text-fluid-base">
             {p.oneLiner}
           </p>
 

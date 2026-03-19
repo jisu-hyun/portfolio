@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const items = [
   { href: "#projects", label: "Projects" },
-  { href: "#experience", label: "Experience" },
+  { href: "#career", label: "Career" },
   { href: "#skills", label: "Skills" },
   { href: "#contact", label: "Contact" },
 ] as const;
