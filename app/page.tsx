@@ -110,6 +110,58 @@ export default function Home() {
           </div>
         </ScrollReveal>
 
+        <ScrollRevealSection id="skills" sectionTitle="SKILLS">
+          <div className="mt-8 w-full glass rounded-2xl border border-white/15 p-5 sm:mt-10 sm:rounded-3xl sm:p-6 md:p-8">
+              <div className="grid gap-6 sm:gap-8">
+                {[
+                  {
+                    title: "Language",
+                    icon: (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M16 18l6-6-6-6" /><path d="M8 6l-6 6 6 6" />
+                      </svg>
+                    ),
+                    items: ["Python", "SQL", "JavaScript", "TypeScript"],
+                  },
+                  {
+                    title: "Data & Geospatial",
+                    icon: (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M3 3v18h18" />
+                        <path d="M18 17V9" /><path d="M13 17V5" /><path d="M8 17v-3" />
+                      </svg>
+                    ),
+                    items: ["Pandas", "GeoPandas", "NumPy", "Matplotlib", "Seaborn", "GeoJSON", "proj4", "shapefile", "Turf.js"],
+                  },
+                  {
+                    title: "Data Visualization & Service",
+                    icon: (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2" />
+                        <path d="M8 21h8" /><path d="M12 17v4" />
+                      </svg>
+                    ),
+                    items: ["React", "Next.js", "Leaflet", "React-Leaflet", "Recharts", "Tailwind CSS", "Node.js"],
+                  },
+                ].map((c) => (
+                  <div key={c.title} className="border-b border-white/10 last:border-0 pb-6 last:pb-0 sm:pb-8 sm:last:pb-0">
+                    <div className="mb-3 flex items-start gap-3 sm:mb-4">
+                      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-white/5 text-white/80">
+                        {c.icon}
+                      </span>
+                      <div className="min-w-0 text-fluid-sm font-semibold text-white md:text-fluid-base">{c.title}</div>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                      {c.items.map((it) => (
+                        <Tag key={it}>{it}</Tag>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+        </ScrollRevealSection>
+
         <ScrollRevealSection id="projects" sectionTitle="PROJECTS" navAnchor="projects">
           <div className="mt-8 w-full">
             <StaggerGrid className="grid gap-4 sm:gap-5 lg:grid-cols-2">
@@ -289,58 +341,6 @@ export default function Home() {
                   </StaggerItem>
                 ))}
               </StaggerGrid>
-            </div>
-        </ScrollRevealSection>
-
-        <ScrollRevealSection id="skills" sectionTitle="SKILLS">
-          <div className="mt-8 w-full glass rounded-2xl border border-white/15 p-5 sm:mt-10 sm:rounded-3xl sm:p-6 md:p-8">
-              <div className="grid gap-6 sm:gap-8">
-                {[
-                  {
-                    title: "Language",
-                    icon: (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M16 18l6-6-6-6" /><path d="M8 6l-6 6 6 6" />
-                      </svg>
-                    ),
-                    items: ["Python", "SQL", "JavaScript", "TypeScript"],
-                  },
-                  {
-                    title: "Data & Geospatial",
-                    icon: (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M3 3v18h18" />
-                        <path d="M18 17V9" /><path d="M13 17V5" /><path d="M8 17v-3" />
-                      </svg>
-                    ),
-                    items: ["Pandas", "GeoPandas", "NumPy", "Matplotlib", "Seaborn", "GeoJSON", "proj4", "shapefile", "Turf.js"],
-                  },
-                  {
-                    title: "Data Visualization & Service",
-                    icon: (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="2" y="3" width="20" height="14" rx="2" />
-                        <path d="M8 21h8" /><path d="M12 17v4" />
-                      </svg>
-                    ),
-                    items: ["React", "Next.js", "Leaflet", "React-Leaflet", "Recharts", "Tailwind CSS", "Node.js"],
-                  },
-                ].map((c) => (
-                  <div key={c.title} className="border-b border-white/10 last:border-0 pb-6 last:pb-0 sm:pb-8 sm:last:pb-0">
-                    <div className="mb-3 flex items-start gap-3 sm:mb-4">
-                      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-white/5 text-white/80">
-                        {c.icon}
-                      </span>
-                      <div className="min-w-0 text-fluid-sm font-semibold text-white md:text-fluid-base">{c.title}</div>
-                    </div>
-                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                      {c.items.map((it) => (
-                        <Tag key={it}>{it}</Tag>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
         </ScrollRevealSection>
 

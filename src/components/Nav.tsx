@@ -3,9 +3,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const items = [
+  { href: "#skills", label: "Skills" },
   { href: "#projects", label: "Projects" },
   { href: "#career", label: "Career" },
-  { href: "#skills", label: "Skills" },
   { href: "#contact", label: "Contact" },
 ] as const;
 
@@ -22,14 +22,11 @@ export function Nav() {
   }, []);
 
   const getScroller = () => {
-    // 이 프로젝트는 body가 스크롤 컨테이너(html은 overflow:hidden)
     const body = document.body;
     try {
       const bodyOverflowY = getComputedStyle(body).overflowY;
       if (bodyOverflowY !== "visible" && bodyOverflowY !== "hidden") return body;
-    } catch {
-      // ignore
-    }
+    } catch {}
     return (document.scrollingElement as HTMLElement | null) ?? document.documentElement;
   };
 
@@ -42,7 +39,7 @@ export function Nav() {
 
       const scroller = getScroller();
       const headerH = headerRef.current?.getBoundingClientRect().height ?? 0;
-      const gap = 14; // Projects가 "딱" 맞는 체감 기준값
+      const gap = 14;
       const targetTop = el.getBoundingClientRect().top + scroller.scrollTop - (headerH + gap);
 
       scroller.scrollTo({ top: Math.max(0, targetTop), behavior: "smooth" });
@@ -106,7 +103,6 @@ export function Nav() {
         </div>
       </header>
 
-      {/* 모바일: 뷰포트 최상단부터 붙는 메뉴 패널 */}
       {open ? (
         <>
           <button
@@ -140,7 +136,6 @@ export function Nav() {
                     setOpen(false);
                     if (!it.href.startsWith("#")) return;
                     e.preventDefault();
-                    // 메뉴 닫힘 애니메이션/레이아웃 변경 후에도 위치가 흔들리지 않게 rAF로 1틱 미룸
                     requestAnimationFrame(() => scrollToHash(it.href));
                   }}
                 >

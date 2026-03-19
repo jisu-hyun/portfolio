@@ -9,7 +9,6 @@ export function CursorGlow() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
-    // 터치 디바이스(모바일/태블릿)에서는 비활성화
     if ("ontouchstart" in window || navigator.maxTouchPoints > 0) return;
 
     const el = document.documentElement;

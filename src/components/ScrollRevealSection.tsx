@@ -5,16 +5,11 @@ import { motion } from "framer-motion";
 
 type ScrollRevealSectionProps = {
   id?: string;
-  /** 대문자 섹션 제목 (예: PROJECTS, EXPERIENCE). 있으면 중앙 정렬 h2 + 구분선 렌더 */
   sectionTitle?: string;
   eyebrow?: string;
   title?: string;
   subtitle?: string;
   titleClassName?: string;
-  /**
-   * projects: 내비 클릭 시 지금 간격 유지(기준)
-   * aligned: EXPERIENCE/SKILLS/CONTACT — 프로젝트와 비슷하게 내비~제목 여백 맞춤
-   */
   navAnchor?: "projects" | "aligned";
   children: React.ReactNode;
 };
@@ -22,13 +17,11 @@ type ScrollRevealSectionProps = {
 const sectionHeadingClass =
   "font-extrabold tracking-tight text-white text-fluid-3xl md:text-fluid-4xl";
 
-/** PROJECTS 전용 — 타이트한 앵커 */
 const anchorProjects =
   "scroll-mt-[max(1.625rem,env(safe-area-inset-top)+1.375rem)] sm:scroll-mt-8 md:scroll-mt-10";
 const sectionPtProjects =
   "pt-[clamp(2.5rem,3.5vw+1.25rem,5.5rem)] pb-[var(--space-section-y)] sm:pt-[clamp(2.65rem,3.75vw+1.35rem,5.65rem)] md:pt-[clamp(2.75rem,4vw+1.4rem,5.75rem)]";
 
-/** 나머지 섹션 — 프로젝트와 동일한 체감 간격 */
 const anchorAligned =
   "scroll-mt-[max(2.4rem,env(safe-area-inset-top)+2rem)] sm:scroll-mt-12 md:scroll-mt-14";
 const sectionPtAligned =
