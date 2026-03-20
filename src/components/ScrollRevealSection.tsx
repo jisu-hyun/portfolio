@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
 
 type ScrollRevealSectionProps = {
   id?: string;
@@ -43,14 +42,7 @@ export function ScrollRevealSection({
   const anchorClass = isProjects ? anchorProjects : anchorAligned;
 
   return (
-    <motion.section
-      id={id}
-      className={`${sectionClass} ${anchorClass}`}
-      initial={{ opacity: 0, y: 44, scale: 0.99 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.22 }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-    >
+    <section id={id} className={`${sectionClass} ${anchorClass}`}>
       <div className="mx-auto w-full max-w-screen-2xl px-[clamp(1rem,3.2vw,3rem)]">
         {sectionTitle ? (
           <div className="mb-6 flex flex-col items-center sm:mb-8 md:mb-10">
@@ -77,6 +69,6 @@ export function ScrollRevealSection({
         ) : null}
         {children}
       </div>
-    </motion.section>
+    </section>
   );
 }

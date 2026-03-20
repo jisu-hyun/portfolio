@@ -10,7 +10,6 @@ const items = [
 ] as const;
 
 export function Nav() {
-  const [open, setOpen] = useState(false);
   const [activeHref, setActiveHref] = useState<((typeof items)[number]["href"]) | null>(null);
   const headerRef = useRef<HTMLElement | null>(null);
   const activeHrefRef = useRef<((typeof items)[number]["href"]) | null>(null);
@@ -49,15 +48,6 @@ export function Nav() {
     },
     [hrefToId]
   );
-
-  useEffect(() => {
-    if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [open]);
 
   useEffect(() => {
     const scroller = getScroller();
@@ -106,16 +96,15 @@ export function Nav() {
   }, [hrefToId]);
 
   return (
-    <div className="fixed inset-x-0 top-0 z-50">
+    <div className="fixed inset-x-0 top-0 z-50 hidden md:block">
       <div className="pointer-events-none absolute inset-0 border-b border-white/10 bg-[linear-gradient(180deg,rgba(0,0,0,.72),rgba(0,0,0,.38))] backdrop-blur-[14px]" />
       <header
         ref={(node) => {
           headerRef.current = node;
         }}
-        className={`relative mx-auto flex w-full max-w-screen-2xl items-center justify-center px-6 pb-2 pt-[max(0.35rem,env(safe-area-inset-top))] sm:px-8 sm:pb-3 sm:pt-[max(0.5rem,env(safe-area-inset-top))] md:px-10 md:pb-4 md:pt-[calc(env(safe-area-inset-top)+0.65rem)] lg:px-12 ${open ? "pointer-events-none opacity-0" : ""}`}
-        aria-hidden={open}
+        className="relative mx-auto flex w-full max-w-screen-2xl items-center justify-center px-6 pb-2 pt-[max(0.35rem,env(safe-area-inset-top))] sm:px-8 sm:pb-3 sm:pt-[max(0.5rem,env(safe-area-inset-top))] md:px-10 md:pb-4 md:pt-[calc(env(safe-area-inset-top)+0.65rem)] lg:px-12"
       >
-        <nav className="pointer-events-auto hidden items-center md:flex" aria-label="Primary">
+        <nav className="pointer-events-auto flex items-center" aria-label="Primary">
           <div className="glass rounded-full border border-white/10 bg-white/[0.03] p-1 shadow-[0_10px_40px_rgba(0,0,0,.35)]">
             <div className="flex items-center gap-0.5">
               {items.map((it) => (
@@ -151,73 +140,7 @@ export function Nav() {
           </div>
         </nav>
 
-        <div className="pointer-events-auto md:hidden">
-          <button
-            type="button"
-            aria-expanded={open}
-            aria-controls="mobile-nav-panel"
-            aria-label={open ? "메뉴 닫기" : "메뉴 열기"}
-            onClick={() => setOpen((v) => !v)}
-            className="glass inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-fluid-sm font-semibold text-white/80"
-          >
-            Menu
-          </button>
-        </div>
       </header>
-
-      {open ? (
-        <>
-          <button
-            type="button"
-            className="fixed inset-0 z-[55] bg-black/55 backdrop-blur-sm md:hidden"
-            aria-label="메뉴 닫기"
-            onClick={() => setOpen(false)}
-          />
-          <div
-            id="mobile-nav-panel"
-            className="fixed inset-x-0 top-0 z-[60] flex max-h-[min(100dvh,100vh)] flex-col border-b border-white/15 bg-[rgba(10,12,18,.97)] shadow-[0_24px_80px_rgba(0,0,0,.65)] backdrop-blur-2xl md:hidden"
-            style={{ paddingTop: "max(0.5rem, env(safe-area-inset-top))" }}
-          >
-            <div className="flex items-center justify-between px-6 pb-2 pt-1 sm:px-8">
-              <span className="text-fluid-xs font-semibold tracking-[0.2em] text-white/45">NAV</span>
-              <button
-                type="button"
-                className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-fluid-sm font-semibold text-white/85 hover:bg-white/10"
-                onClick={() => setOpen(false)}
-              >
-                닫기
-              </button>
-            </div>
-            <nav className="flex flex-col gap-0.5 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-1 sm:px-6" aria-label="모바일 메뉴">
-              {items.map((it) => (
-                (() => {
-                  const isActive = activeHref === it.href;
-                  return (
-                <a
-                  key={it.href}
-                  href={it.href}
-                  className={`rounded-xl px-4 py-3.5 text-fluid-base font-semibold transition-colors ${
-                    isActive
-                      ? "bg-white/10 text-white"
-                      : "text-white/85 hover:bg-white/5 hover:text-white active:bg-white/10"
-                  }`}
-                  onClick={(e) => {
-                    setOpen(false);
-                    if (!it.href.startsWith("#")) return;
-                    e.preventDefault();
-                    setActiveHref(it.href);
-                    requestAnimationFrame(() => scrollToHash(it.href));
-                  }}
-                >
-                  {it.label}
-                </a>
-                  );
-                })()
-              ))}
-            </nav>
-          </div>
-        </>
-      ) : null}
     </div>
   );
 }

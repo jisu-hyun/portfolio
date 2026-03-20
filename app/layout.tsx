@@ -5,18 +5,23 @@ import { CursorGlow } from "@/components/CursorGlow";
 
 const sans = IBM_Plex_Sans_KR({
   variable: "--font-sans-kr",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "700"],
   subsets: ["latin"],
+  display: "swap",
 });
 
 const display = Space_Grotesk({
   variable: "--font-display",
   subsets: ["latin"],
+  display: "swap",
+  preload: false,
 });
 
 const mono = JetBrains_Mono({
   variable: "--font-mono-jet",
   subsets: ["latin"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {

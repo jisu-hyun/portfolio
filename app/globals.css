@@ -68,6 +68,18 @@ body {
   padding-top: clamp(70px, 8.5vw, 104px);
 }
 
+@media (max-width: 767px) {
+  body {
+    padding-top: 0;
+  }
+
+  /* Fallback: hide any legacy mobile nav controls */
+  button[aria-controls="mobile-nav-panel"],
+  #mobile-nav-panel {
+    display: none !important;
+  }
+}
+
 .font-display {
   font-family: var(--font-display), var(--font-sans), system-ui, -apple-system,
     Segoe UI, Roboto, Helvetica, Arial, "Apple SD Gothic Neo", "Noto Sans KR",

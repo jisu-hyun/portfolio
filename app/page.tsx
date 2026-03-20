@@ -7,6 +7,32 @@ import { Tag } from "@/components/ui/Tag";
 import { AnimateIn, StaggerGrid, StaggerItem } from "@/components/AnimateIn";
 import { featuredProjects, site } from "@/lib/site";
 
+const thumbGradients: Record<number, string> = {
+  1: "linear-gradient(135deg, rgba(120,170,255,.4) 0%, rgba(100,140,220,.2) 100%)",
+  2: "linear-gradient(135deg, rgba(80,220,180,.35) 0%, rgba(60,180,160,.18) 100%)",
+  3: "linear-gradient(135deg, rgba(255,180,100,.3) 0%, rgba(220,140,80,.15) 100%)",
+  4: "linear-gradient(135deg, rgba(160,120,255,.35) 0%, rgba(120,80,200,.18) 100%)",
+  5: "linear-gradient(135deg, rgba(100,200,255,.3) 0%, rgba(80,160,220,.15) 100%)",
+  6: "linear-gradient(135deg, rgba(140,100,200,.35) 0%, rgba(100,80,160,.18) 100%)",
+};
+
+const scoreProjectPeriod = (period: string) => {
+  const s = period.trim();
+  if (s.includes("진행")) return Number.POSITIVE_INFINITY;
+  const m = s.match(/^(\d{4})\.(\d{2})$/);
+  if (!m) return Number.NEGATIVE_INFINITY;
+  const y = Number(m[1]);
+  const mo = Number(m[2]);
+  return y * 100 + mo;
+};
+
+const sortedFeaturedProjects = featuredProjects
+  .slice()
+  .sort((a, b) => {
+    const diff = scoreProjectPeriod(b.period) - scoreProjectPeriod(a.period);
+    return diff !== 0 ? diff : b.order - a.order;
+  });
+
 /** 빈 줄 기준으로 문단(배열의 배열)으로 묶기 */
 function toParagraphs(lines: readonly string[]): string[][] {
   const paragraphs: string[][] = [];
@@ -56,7 +82,7 @@ export default function Home() {
       <main className="relative">
         <ScrollReveal className="pb-[var(--space-section-y)] pt-[clamp(4.25rem,8.5vw,8rem)]">
           <div className="mx-auto w-full max-w-screen-2xl px-[clamp(1rem,3.2vw,3rem)]">
-            <div className="grid gap-10 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-14">
+            <div className="grid gap-7 sm:gap-9 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-14">
               <div className="min-w-0">
                 <AnimateIn delay={0.08}>
                   <h1 className="mt-4 font-extrabold tracking-tight text-white text-fluid-3xl md:text-fluid-4xl sm:mt-6">
@@ -72,7 +98,7 @@ export default function Home() {
                   </div>
                 </AnimateIn>
                 <AnimateIn delay={0.16}>
-                  <div className="mt-4 max-w-3xl xl:max-w-4xl text-pretty text-fluid-sm leading-[1.82] tracking-[-0.01em] text-white/72 sm:mt-5 space-y-6 break-keep">
+                  <div className="mt-4 max-w-3xl xl:max-w-4xl text-pretty text-fluid-sm leading-[1.72] tracking-[-0.01em] text-white/72 sm:mt-5 sm:leading-[1.82] space-y-4 sm:space-y-6 break-keep">
                     {toParagraphs(site.intro).map((p, i) => (
                         <p key={i} className="text-pretty">
                           {p.map((line, j) => (
@@ -111,7 +137,7 @@ export default function Home() {
         </ScrollReveal>
 
         <ScrollRevealSection id="skills" sectionTitle="SKILLS">
-          <div className="mt-8 w-full glass rounded-2xl border border-white/15 p-5 sm:mt-10 sm:rounded-3xl sm:p-6 md:p-8">
+          <div className="mt-6 w-full glass rounded-2xl border border-white/15 p-4 sm:mt-10 sm:rounded-3xl sm:p-6 md:p-8">
               <div className="grid gap-6 sm:gap-8">
                 {[
                   {
@@ -163,32 +189,9 @@ export default function Home() {
         </ScrollRevealSection>
 
         <ScrollRevealSection id="projects" sectionTitle="PROJECTS" navAnchor="projects">
-          <div className="mt-8 w-full">
+          <div className="mt-6 w-full sm:mt-8">
             <StaggerGrid className="grid gap-4 sm:gap-5 lg:grid-cols-2">
-                {featuredProjects
-                  .slice()
-                  .sort((a, b) => {
-                    const score = (p: { period: string }) => {
-                      const s = p.period.trim();
-                      if (s.includes("진행")) return Number.POSITIVE_INFINITY;
-                      const m = s.match(/^(\d{4})\.(\d{2})$/);
-                      if (!m) return Number.NEGATIVE_INFINITY;
-                      const y = Number(m[1]);
-                      const mo = Number(m[2]);
-                      return y * 100 + mo;
-                    };
-                    const diff = score(b) - score(a);
-                    return diff !== 0 ? diff : b.order - a.order;
-                  })
-                  .map((p) => {
-                    const thumbGradients: Record<number, string> = {
-                      1: "linear-gradient(135deg, rgba(120,170,255,.4) 0%, rgba(100,140,220,.2) 100%)",
-                      2: "linear-gradient(135deg, rgba(80,220,180,.35) 0%, rgba(60,180,160,.18) 100%)",
-                      3: "linear-gradient(135deg, rgba(255,180,100,.3) 0%, rgba(220,140,80,.15) 100%)",
-                      4: "linear-gradient(135deg, rgba(160,120,255,.35) 0%, rgba(120,80,200,.18) 100%)",
-                      5: "linear-gradient(135deg, rgba(100,200,255,.3) 0%, rgba(80,160,220,.15) 100%)",
-                      6: "linear-gradient(135deg, rgba(140,100,200,.35) 0%, rgba(100,80,160,.18) 100%)",
-                    };
+                {sortedFeaturedProjects.map((p) => {
                     const detailHref = `/projects/${p.id}`;
                     return (
                       <StaggerItem key={p.id}>
@@ -198,7 +201,7 @@ export default function Home() {
                             className="project-card group block overflow-hidden rounded-xl border border-white/15 bg-white/[0.08] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7c3aed]/60"
                           >
                             <div
-                              className="project-thumb relative h-44 w-full overflow-hidden border-b border-white/15 sm:h-48 md:h-52"
+                              className="project-thumb relative h-40 w-full overflow-hidden border-b border-white/15 sm:h-48 md:h-52"
                               style={{ background: thumbGradients[p.order] ?? thumbGradients[1] }}
                             >
                               <div className="absolute inset-0 opacity-80 [background:radial-gradient(900px_circle_at_30%_20%,rgba(255,255,255,.28),transparent_55%),radial-gradient(700px_circle_at_70%_80%,rgba(255,255,255,.16),transparent_58%)]" />
@@ -223,25 +226,25 @@ export default function Home() {
                               ) : null}
                             </div>
 
-                            <div className="flex min-w-0 flex-col gap-3 p-4 sm:p-5">
+                            <div className="flex min-w-0 flex-col gap-2.5 p-3.5 sm:gap-3 sm:p-5">
                               <div className="flex flex-wrap items-center gap-2">
-                                <span className="rounded-full border border-white/15 bg-white/[0.08] px-3.5 py-1.5 text-base font-semibold tracking-[0.14em] text-white/85">
+                                <span className="rounded-full border border-white/15 bg-white/[0.08] px-3 py-1 text-sm font-semibold tracking-[0.12em] text-white/85 sm:px-3.5 sm:py-1.5 sm:text-base sm:tracking-[0.14em]">
                                   {p.category}
                                 </span>
-                                <span className="rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-1.5 text-base font-semibold text-white/75">
+                                <span className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-sm font-semibold text-white/75 sm:px-3.5 sm:py-1.5 sm:text-base">
                                   {p.period}
                                 </span>
                               </div>
 
                               <div className="min-w-0">
-                                <h3 className="text-xl font-extrabold tracking-[-0.02em] text-white sm:text-2xl">
+                                <h3 className="text-lg font-extrabold tracking-[-0.02em] text-white sm:text-2xl">
                                   {p.title}
                                 </h3>
                               </div>
 
                               <div className="mt-1 flex items-center justify-between">
-                                <span className="text-base font-semibold text-white/80">Case Study</span>
-                                <span className="inline-flex items-center gap-2 rounded-lg bg-[#7c3aed]/90 px-4 py-2.5 text-base font-semibold text-white shadow-[0_14px_45px_rgba(124,58,237,.18)] transition-colors group-hover:bg-[#6d28d9]">
+                                <span className="text-sm font-semibold text-white/80 sm:text-base">Case Study</span>
+                                <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#7c3aed]/90 px-3 py-2 text-sm font-semibold text-white shadow-[0_14px_45px_rgba(124,58,237,.18)] transition-colors group-hover:bg-[#6d28d9] sm:gap-2 sm:px-4 sm:py-2.5 sm:text-base">
                                   자세히 보기
                                   <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
                                 </span>
@@ -257,7 +260,7 @@ export default function Home() {
         </ScrollRevealSection>
 
         <ScrollRevealSection id="career" sectionTitle="CAREER">
-          <div className="mt-8 w-full glass rounded-2xl border border-white/15 p-5 sm:rounded-3xl sm:p-6 md:p-8">
+          <div className="mt-6 w-full glass rounded-2xl border border-white/15 p-4 sm:mt-8 sm:rounded-3xl sm:p-6 md:p-8">
               <StaggerGrid className="grid gap-3 sm:gap-4">
                 {[
                   {
@@ -291,7 +294,7 @@ export default function Home() {
                   },
                 ].map((x) => (
                   <StaggerItem key={`${x.org}-${x.team}`}>
-                    <div className="card-hover-glow rounded-2xl bg-white/[0.04] p-5 sm:p-6">
+                    <div className="card-hover-glow rounded-2xl bg-white/[0.04] p-4 sm:p-6">
                       <div className="min-w-0">
                           <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                             <div className="min-w-0">
@@ -302,7 +305,7 @@ export default function Home() {
                                   <span>{x.team}</span>
                                 </div>
                                 {x.tagline ? (
-                                  <span className="ml-3 rounded-full border border-white/20 bg-white/[0.1] px-3.5 py-1.5 text-fluid-xs font-semibold text-white/85">
+                                  <span className="ml-2 sm:ml-3 rounded-full border border-white/20 bg-white/[0.1] px-3 py-1 text-xs font-semibold text-white/85 sm:px-3.5 sm:py-1.5 sm:text-fluid-xs">
                                     {x.tagline}
                                   </span>
                                 ) : null}
@@ -313,9 +316,9 @@ export default function Home() {
                             </div>
                           </div>
 
-                          <div className="mt-6 space-y-6">
+                          <div className="mt-5 space-y-5 sm:mt-6 sm:space-y-6">
                             {x.items.map((it, idx) => (
-                              <div key={it.title} className={idx > 0 ? "border-t border-white/12 pt-6" : ""}>
+                              <div key={it.title} className={idx > 0 ? "border-t border-white/12 pt-5 sm:pt-6" : ""}>
                                 <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-2">
                                   <div className="text-fluid-sm font-semibold tracking-tight text-white/95 md:text-fluid-base">
                                     {it.title}
@@ -327,7 +330,7 @@ export default function Home() {
                                   ) : null}
                                 </div>
                                 {it.desc.length > 0 ? (
-                                  <ul className="mt-2.5 list-disc space-y-2 pl-5 text-fluid-sm leading-7 text-white/80 md:text-fluid-base md:leading-8">
+                                  <ul className="mt-2 list-disc space-y-1.5 pl-5 text-fluid-sm leading-6 text-white/80 md:text-fluid-base md:leading-8">
                                     {it.desc.map((d) => (
                                       <li key={d}>{d}</li>
                                     ))}
@@ -345,8 +348,8 @@ export default function Home() {
         </ScrollRevealSection>
 
         <ScrollRevealSection id="contact" sectionTitle="CONTACT">
-          <div className="mx-auto mt-8 w-full max-w-xl">
-            <div className="glass rounded-2xl border border-white/15 p-5 sm:rounded-3xl sm:p-6 md:p-8">
+          <div className="mx-auto mt-6 w-full max-w-xl sm:mt-8">
+            <div className="glass rounded-2xl border border-white/15 p-4 sm:rounded-3xl sm:p-6 md:p-8">
               <ContactForm
                 toEmail={site.email}
                 formspreeFormId={process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID ?? undefined}
