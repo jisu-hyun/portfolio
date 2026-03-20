@@ -1,7 +1,5 @@
 # Portfolio
 
-현지수 포트폴리오 웹사이트입니다.
-
 - Stack: Next.js, TypeScript, React, Tailwind CSS
 - Sections: Skills, Projects, Career, Contact
 
