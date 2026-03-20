@@ -13,6 +13,7 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const [activeHref, setActiveHref] = useState<((typeof items)[number]["href"]) | null>(null);
   const headerRef = useRef<HTMLElement | null>(null);
+  const activeHrefRef = useRef<((typeof items)[number]["href"]) | null>(null);
 
   const hrefToId = useMemo(() => {
     const map = new Map<string, string>();
@@ -61,6 +62,7 @@ export function Nav() {
   useEffect(() => {
     const scroller = getScroller();
     const offsetBase = () => (headerRef.current?.getBoundingClientRect().height ?? 0) + 24;
+    let rafRef: number | null = null;
 
     const updateActiveFromScroll = () => {
       let current: (typeof items)[number]["href"] | null = null;
@@ -71,7 +73,18 @@ export function Nav() {
         if (!el) continue;
         if (el.getBoundingClientRect().top <= offsetBase()) current = it.href;
       }
-      setActiveHref(current);
+      if (activeHrefRef.current !== current) {
+        activeHrefRef.current = current;
+        setActiveHref(current);
+      }
+    };
+
+    const onScroll = () => {
+      if (rafRef != null) return;
+      rafRef = window.requestAnimationFrame(() => {
+        rafRef = null;
+        updateActiveFromScroll();
+      });
     };
 
     // 초기 진입 시 hash가 있으면 우선 반영
@@ -81,13 +94,14 @@ export function Nav() {
     }
 
     updateActiveFromScroll();
-    scroller.addEventListener("scroll", updateActiveFromScroll, { passive: true });
+    scroller.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", updateActiveFromScroll);
     window.addEventListener("hashchange", updateActiveFromScroll);
     return () => {
-      scroller.removeEventListener("scroll", updateActiveFromScroll);
+      scroller.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", updateActiveFromScroll);
       window.removeEventListener("hashchange", updateActiveFromScroll);
+      if (rafRef != null) window.cancelAnimationFrame(rafRef);
     };
   }, [hrefToId]);
 

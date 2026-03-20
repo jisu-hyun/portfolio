@@ -54,8 +54,8 @@ export default function Home() {
       <Nav />
 
       <main className="relative">
-        <ScrollReveal className="pb-[var(--space-section-y)] pt-24 sm:pt-28 md:pt-32">
-          <div className="mx-auto w-full max-w-[1200px] px-6 sm:px-8 md:px-10 lg:px-12">
+        <ScrollReveal className="pb-[var(--space-section-y)] pt-[clamp(4.25rem,8.5vw,8rem)]">
+          <div className="mx-auto w-full max-w-screen-2xl px-[clamp(1rem,3.2vw,3rem)]">
             <div className="grid gap-10 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-14">
               <div className="min-w-0">
                 <AnimateIn delay={0.08}>

@@ -46,12 +46,12 @@ export function ScrollRevealSection({
     <motion.section
       id={id}
       className={`${sectionClass} ${anchorClass}`}
-      initial={{ opacity: 0, y: 78, scale: 0.985, filter: "blur(10px)" }}
-      whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y: 44, scale: 0.99 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.22 }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="mx-auto w-full max-w-screen-2xl px-6 sm:px-8 md:px-10 lg:px-12">
+      <div className="mx-auto w-full max-w-screen-2xl px-[clamp(1rem,3.2vw,3rem)]">
         {sectionTitle ? (
           <div className="mb-6 flex flex-col items-center sm:mb-8 md:mb-10">
             <h2 className={sectionHeadingClass + (titleClassName ? ` ${titleClassName}` : "")}>
