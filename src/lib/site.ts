@@ -408,7 +408,6 @@ export const featuredProjects: FeaturedProject[] = [
     tags: ["Next.js", "TypeScript", "Tailwind", "Cloudflare", "관리자", "GitHub API"],
     links: [
       { label: "Live", href: "https://daedongcarart.com", kind: "primary" },
-      { label: "GitHub", href: "https://github.com/jisu-hyun/business-websit", kind: "secondary" },
     ],
   },
 ];
