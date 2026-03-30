@@ -12,7 +12,6 @@ export function CursorGlow() {
 
     const layerEl = layerRef.current;
     if (!layerEl) return;
-    // Prioritize immediate cursor tracking over visual intensity.
     layerEl.dataset.cursorLite = "1";
     let clickTimer: number | null = null;
     let boost = "0";

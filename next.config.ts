@@ -1,6 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /** 프로덕션에서 브라우저 소스맵 비활성화(번들 구조 노출 완화) */
+  productionBrowserSourceMaps: false,
+  /** 프로덕션 빌드에서 console.* 제거(에러 로그는 유지) */
+  compiler: {
+    removeConsole:
+      process.env.NODE_ENV === "production"
+        ? { exclude: ["error"] }
+        : false,
+  },
   /** EMFILE(too many open files) 시 라우트가 깨져 GET / 404 나는 경우 완화 */
   webpack: (config, { dev }) => {
     if (dev) {

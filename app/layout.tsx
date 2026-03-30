@@ -24,10 +24,16 @@ const mono = JetBrains_Mono({
   preload: false,
 });
 
+const DEFAULT_SITE_URL = "https://hyunjisu-portfolio.pages.dev";
+
+const siteUrl = new URL(
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() || DEFAULT_SITE_URL,
+);
+
 export const metadata: Metadata = {
   title: "현지수의 포트폴리오",
   description: "Data-Focused Developer · HyunJisu 포트폴리오",
-  metadataBase: new URL("https://example.com"),
+  metadataBase: siteUrl,
   icons: {
     icon: "/favicon.svg",
   },
