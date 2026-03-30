@@ -2,6 +2,8 @@
 
 import { useEffect } from "react";
 
+const isProd = process.env.NODE_ENV === "production";
+
 export default function Error({
   error,
   reset,
@@ -19,11 +21,15 @@ export default function Error({
       <p className="text-center text-fluid-base text-white/70">
         일시적인 문제가 생겼어요. 아래 버튼으로 다시 시도해 주세요.
       </p>
-      <pre className="max-w-full overflow-auto rounded-lg border border-white/15 bg-white/5 p-4 text-left text-sm text-white/80">
-        {error.message}
-      </pre>
-      {error.digest && (
-        <p className="text-fluid-xs text-white/50">digest: {error.digest}</p>
+      {!isProd && (
+        <>
+          <pre className="max-w-full overflow-auto rounded-lg border border-white/15 bg-white/5 p-4 text-left text-sm text-white/80">
+            {error.message}
+          </pre>
+          {error.digest ? (
+            <p className="text-fluid-xs text-white/50">digest: {error.digest}</p>
+          ) : null}
+        </>
       )}
       <button
         type="button"

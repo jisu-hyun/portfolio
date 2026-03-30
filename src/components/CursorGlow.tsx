@@ -22,7 +22,7 @@ export function CursorGlow() {
       layerEl.style.setProperty("--cursor-y", `${e.clientY}px`);
     };
 
-    const onPointerDown = (e: PointerEvent) => {
+    const onPointerDown = () => {
       layerEl.style.setProperty("--cursor-click", "1");
       if (clickTimer != null) window.clearTimeout(clickTimer);
       clickTimer = window.setTimeout(() => {
